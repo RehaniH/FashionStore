@@ -27,7 +27,7 @@ app.use(cors());
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 
-//Routing configured
+//Routing configured for products router
 app.use('/products', product);
 
 app.listen(PORT, function () {

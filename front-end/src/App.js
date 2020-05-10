@@ -3,7 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Home from "./components/home.component";
 import LoginComponent from "./components/login.component";
-
+import AddProducts from "./components/manage-products.component";
+import AllProducts from "./components/retrieve-products.component";
 class App extends Component{
 
     render() {
@@ -20,7 +21,12 @@ class App extends Component{
                                 <li className="navbar-item">
                                     <Link to="/" className="nav-link">Home</Link>
                                 </li>
-
+                                <li className="navbar-item">
+                                    <Link to="/storage" className="nav-link">Store Manager</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/storage/all" className="nav-link">All Products</Link>
+                                </li>
                                 <li className="navbar-item">
                                     <Link to="/login" className="nav-link">Sign In</Link>
                                 </li>
@@ -31,7 +37,8 @@ class App extends Component{
 
                     <Route path="/" exact component={Home}/>
                     <Route path="/login" component={LoginComponent}/>
-
+                    <Route path="/storage" component={AddProducts}/>
+                    <Route path="/storage/all" component={AllProducts}/>
                 </div>
             </Router>
         );

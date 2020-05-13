@@ -5,10 +5,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const pRouter = express.Router();
 const PORT = 4000;
+const passport = require("passport");
 
 //products routes
 const product = require('./Routes/product.routes');
 
+//user routes
+const users = require("./Routes/user.routes");
 
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
 
@@ -25,10 +28,17 @@ connection.on('error', function () {
 
 app.use(cors());
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
+app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 
 //Routing configured for products router
 app.use('/products', product);
+
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./Config/passport")(passport);
+// Routes
+app.use("/api/users", users);
 
 app.listen(PORT, function () {
     console.log('Server is running on Port: ' + PORT);

@@ -26,8 +26,10 @@ connection.on('error', function () {
     console.log('MongoDB connection error.')
 });
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
+app.use(express.json({ extended: false }));
+app.get('/', (req, res) => res.send('Hello world!'));
 //app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 
 //Routing configured

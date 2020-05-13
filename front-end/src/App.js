@@ -3,6 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Home from "./components/home.component";
 import LoginComponent from "./components/login.component";
+import AddComment from "./components/addComment.component.js";
+// import CommentSingle from "./components/commentSingle.component.js";
+import ShowCommentDetails from "./components/showCommentDetails.component.js";
+import ShowCommentList from "./components/showCommentList.component.js";
+import UpdateComment from "./components/updateComment.component.js";
+
 
 class App extends Component{
 
@@ -31,6 +37,11 @@ class App extends Component{
 
                     <Route path="/" exact component={Home}/>
                     <Route path="/login" component={LoginComponent}/>
+
+                    <Route exact path='/comments' component={ShowCommentList} />
+                    <Route path='/comments/add-comment' component={AddComment} />
+                    <Route path='/comments/edit-comment/:id' component={UpdateComment} />
+                    <Route path='/comments/show-comment/:id' component={ShowCommentDetails} />
 
                 </div>
             </Router>

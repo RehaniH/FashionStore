@@ -8,6 +8,9 @@ const PORT = 4000;
 
 //products routes
 const product = require('./Routes/product.routes');
+const ratings=require('./Routes/rating.route');
+const wishlists=require('./Routes/wishlist.route');
+
 
 
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
@@ -29,6 +32,8 @@ app.use(bodyParser.json());
 
 //Routing configured
 app.use('/products', product);
+app.use('/ratings',ratings);
+app.use('/wishlists',wishlists);
 
 app.listen(PORT, function () {
     console.log('Server is running on Port: ' + PORT);

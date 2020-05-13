@@ -5,6 +5,7 @@ exports.test = function (req, res) {
     res.send('Greetings from test controller');
 };
 
+
 exports.create_product = function (req, res) {
     let product = new Product(req.body);
     product.save()
@@ -14,7 +15,6 @@ exports.create_product = function (req, res) {
         .catch(err=>{
             res.status(400).send('adding new product failed');
         });
-
 
 };
 

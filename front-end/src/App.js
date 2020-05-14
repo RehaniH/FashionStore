@@ -9,6 +9,9 @@ import ShowCommentDetails from "./components/showCommentDetails.component.js";
 import ShowCommentList from "./components/showCommentList.component.js";
 import UpdateComment from "./components/updateComment.component.js";
 
+import AddWishlist from "./components/addWishlist.component.js";
+import ShowWishlist from "./components/showWishlist.component.js";
+
 
 class App extends Component{
 
@@ -42,6 +45,9 @@ class App extends Component{
                     <Route path='/comments/add-comment' component={AddComment} />
                     <Route path='/comments/edit-comment/:id' component={UpdateComment} />
                     <Route path='/comments/show-comment/:id' component={ShowCommentDetails} />
+
+                    <Route path='/wishlist/add-wishlist' component={AddWishlist} />
+                    <Route path='/wishlist/show-wishlist/:username' component={ShowWishlist} />
 
                 </div>
             </Router>

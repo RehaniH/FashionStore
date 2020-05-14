@@ -20,6 +20,12 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(404).json({ noratingfound: 'No Wishlists found' }));
 });
 
+router.get('/get/:username', (req, res) => {
+    Wishlists.findOne({ 'username':  req.params.username})
+        .then(wish => res.json(wish))
+        .catch(err => res.status(404).json({ noratingfound: 'No username found' }));
+});
+
 
 router.post('/add', (req, res) => {
 

@@ -1,13 +1,15 @@
 import React, {Component} from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Register from "./register.component";
 
-class LoginComponent extends Component{
+class AddCategory extends Component{
+
     constructor() {
         super();
         this.state = {
-            email: '',
-            password:''
+            name:'',
+            description:''
         };
     }
 
@@ -17,23 +19,22 @@ class LoginComponent extends Component{
 
     onSubmit = e => {
         e.preventDefault();
-
-        const userData = {
-            email: this.state.email,
-            password: this.state.password
+        const category = {
+            name: this.state.name,
+            description: this.state.description
         };
 
         axios
-            .post('http://localhost:4000/api/users/login', userData)
+            .post('http://localhost:4000/products/category/create', category)
             .then(res => {
                 this.setState({
-                    email: '',
-                    password:''
+                    name: '',
+                    description: ''
                 })
-                this.props.history.push('/dashboard');
+                this.props.history.push('/register');
             })
             .catch(err => {
-                console.log("Error in Login!");
+                console.log("Error in Category!");
             })
     };
 
@@ -58,22 +59,20 @@ class LoginComponent extends Component{
                                 <div className='form-group'>
                                     <input
                                         type='text'
-                                        placeholder='email'
-                                        name='email'
+                                        placeholder='name'
+                                        name='name'
                                         className='form-control'
-                                        value={this.state.email}
+                                        value={this.state.name}
                                         onChange={this.onChange}
                                     />
                                 </div>
-                                <br />
-
                                 <div className='form-group'>
                                     <input
                                         type='text'
-                                        placeholder='password'
-                                        name='password'
+                                        placeholder='description'
+                                        name='description'
                                         className='form-control'
-                                        value={this.state.password}
+                                        value={this.state.description}
                                         onChange={this.onChange}
                                     />
                                 </div>
@@ -89,6 +88,7 @@ class LoginComponent extends Component{
             </div>
         );
     }
-}
 
-export default LoginComponent;
+};
+
+export default AddCategory;

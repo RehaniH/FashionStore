@@ -6,14 +6,15 @@ const Product = props =>(
    <tr>
        <td>{props.product.name}</td>
        <td>{props.product.description}</td>
-       <td>{props.product.price}</td>
+       <td>{props.product.retail_price}</td>
        <td>{props.product.total_quantity}</td>
        <td>{props.product.category.name}</td>
+       <td><img src={props.product.product_image} height='40' width='30' alt={props.product.name}/></td>
        <td>
-           <Link to={"/" + props.product._id}>Edit</Link>
+           <Link to={"/storage/edit/" + props.product._id}>Edit</Link>
        </td>
    </tr>
-)
+);
 class AllProducts extends Component{
 
     constructor(props) {
@@ -49,6 +50,7 @@ class AllProducts extends Component{
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Category</th>
+                        <th>Product Image</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>

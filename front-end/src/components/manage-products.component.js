@@ -5,22 +5,44 @@ class AddProducts extends Component{
 
     constructor(props) {
         super(props);
-
+        this.onChangeRefNo = this.onChangeRefNo.bind(this);
         this.onChangeCategory = this.onChangeCategory.bind(this);
         this.onChangeProductName = this.onChangeProductName.bind(this);
         this.onChangeQuantity = this.onChangeQuantity.bind(this);
-        this.onChangePrice = this.onChangePrice.bind(this);
-        this.onChangeDesciption = this.onChangeDesciption.bind(this);
+        this.onChangeRetailPrice = this.onChangeRetailPrice.bind(this);
+        this.onChangeManufacturerPrice = this.onChangeManufacturerPrice.bind(this);
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeFile = this.onChangeFile.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
+
         this.state = {
+            ref_no: 0,
             product_name:"",
             category:"",
             quantity: 0,
-            price: 0.00,
-            description:""
+            manufacturer_price: 0.00,
+            retail_price: 0.00,
+            description:"",
+            product_img:null,
+            categories:[]
 
         }
+    }
+    componentDidMount() {
+        axios.get('http://localhost:4000/products/category/all')
+            .then(response =>{
+            this.setState({
+                categories: response.data
+            });
+            console.log(response.data);
+        }).catch(err => console.log('error'))
+    }
+
+    onChangeRefNo(e){
+        this.setState({
+            ref_no: e.target.value
+        });
     }
 
     onChangeProductName(e){
@@ -33,21 +55,37 @@ class AddProducts extends Component{
             quantity: e.target.value
         });
     }
-    onChangePrice(e){
+    onChangeManufacturerPrice(e){
         this.setState({
-            price: e.target.value
+            manufacturer_price: e.target.value
         });
     }
 
-    onChangeDesciption(e){
+    onChangeRetailPrice(e){
+        this.setState({
+            retail_price: e.target.value
+        });
+    }
+    onChangeDescription(e){
         this.setState({
             description: e.target.value
         });
     }
 
     onChangeCategory(e){
+        console.log(e.target.value + ' in main');
         this.setState({
             category: e.target.value
+        });
+
+        console.log('State: ' + this.state.category);
+    }
+
+    onChangeFile(e){
+        console.log(e.target.files[0]);
+        this.setState({
+            product_img: e.target.files[0],
+            loaded:0,
         });
     }
 
@@ -56,26 +94,47 @@ class AddProducts extends Component{
 
         console.log(`Form submitted`);
         console.log(`Name : ${this.state.product_name}`);
+        console.log(`ref_no : ${this.state.ref_no}`);
         console.log(`Description : ${this.state.description}`);
         console.log(`category: ${this.state.category}`);
-        console.log(`price: ${this.state.price}`);
+        console.log(`retail_price: ${this.state.retail_price}`);
+        console.log(`manufacturer_price: ${this.state.manufacturer_price}`);
         console.log(`quantity: ${this.state.quantity}`);
 
-        const newProduct = {
-            name: this.state.product_name,
-            description: this.state.description,
-            category: this.state.category,
-            total_quantity: this.state.quantity,
-            price: this.state.price
+        const formData = new FormData();
+        formData.set('ref_no', this.state.ref_no);
+        formData.set('product_name', this.state.product_name);
+        formData.set('description', this.state.description);
+        formData.set('category', this.state.category);
+        formData.set('total_quantity', this.state.quantity);
+        formData.set('manufacturer_price', this.state.manufacturer_price);
+        formData.set('retail_price', this.state.retail_price);
+        formData.append('product_img',this.state.product_img);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         };
-        axios.post('http://localhost:4000/products/create', newProduct)
+        // const newProduct = {
+        //     name: this.state.product_name,
+        //     description: this.state.description,
+        //     category: this.state.category,
+        //     total_quantity: this.state.quantity,
+        //     price: this.state.price
+        // };
+        axios.post('http://localhost:4000/products/upload', formData, config)
             .then(res => console.log(res.data));
+
         this.setState({
+            ref_no:0,
             product_name:'',
             description:'',
             category:'',
-            price: 0.00,
-            quantity: 0
+            manufacturer_price: 0.00,
+            retail_price: 0.00,
+            quantity: 0,
+            product_img: null
         });
 
     }
@@ -87,6 +146,12 @@ class AddProducts extends Component{
                     <form onSubmit={this.onSubmit}>
 
                         <div className="form-group">
+                            <label>Product No: </label>
+                            <input type="text" className="form-control" onChange={this.onChangeRefNo}
+                                   value={this.state.ref_no}/>
+                        </div>
+
+                        <div className="form-group">
                             <label>Product Name: </label>
                             <input type="text" className="form-control" onChange={this.onChangeProductName}
                                    value={this.state.product_name}/>
@@ -94,7 +159,7 @@ class AddProducts extends Component{
 
                         <div className="form-group">
                             <label>Description: </label>
-                            <input type="text" className="form-control" onChange={this.onChangeDesciption}
+                            <input type="text" className="form-control" onChange={this.onChangeDescription}
                                    value={this.state.description}/>
                         </div>
 
@@ -105,15 +170,26 @@ class AddProducts extends Component{
                         </div>
 
                         <div className="form-group">
-                            <label>Price: </label>
-                            <input type="number" className="form-control" onChange={this.onChangePrice}
-                                   value={this.state.price}/>
+                            <label>Manufactured Price: </label>
+                            <input type="number" className="form-control" onChange={this.onChangeManufacturerPrice}
+                                   value={this.state.manufacturer_price}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Retail Price: </label>
+                            <input type="number" className="form-control" onChange={this.onChangeRetailPrice}
+                                   value={this.state.retail_price}/>
                         </div>
 
                         <div className="form-group">
                             <label>Category: </label>
-                            <input type="text" className="form-control" onChange={this.onChangeCategory}
-                                   value={this.state.category}/>
+                            <select className="form-control" value={this.state.category} onChange={this.onChangeCategory}>
+                                {this.state.categories.map(category => <option key={category._id} value={category._id}>{category.name}</option>)}
+                            </select>
+                        </div>
+
+                        <div className="form-group">
+                            <label>Product Image: </label>
+                            <input type="file" className="form-control" onChange={this.onChangeFile} name="someFile"/>
                         </div>
 
                         <div className="form-group">

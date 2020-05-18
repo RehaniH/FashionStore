@@ -5,6 +5,8 @@ import Home from "./components/home.component";
 import LoginComponent from "./components/login.component";
 import AddProducts from "./components/manage-products.component";
 import AllProducts from "./components/retrieve-products.component";
+import EditProducts from './components/edit-products.component';
+
 class App extends Component{
 
     render() {
@@ -28,6 +30,9 @@ class App extends Component{
                                     <Link to="/storage/all" className="nav-link">All Products</Link>
                                 </li>
                                 <li className="navbar-item">
+                                    <Link to="/storage/edit/:id" className="nav-link">Edit Products</Link>
+                                </li>
+                                <li className="navbar-item">
                                     <Link to="/login" className="nav-link">Sign In</Link>
                                 </li>
 
@@ -39,6 +44,7 @@ class App extends Component{
                     <Route path="/login" component={LoginComponent}/>
                     <Route path="/storage" component={AddProducts}/>
                     <Route path="/storage/all" component={AllProducts}/>
+                    <Route path="/storage/edit/:id" exact component={EditProducts}/>
                 </div>
             </Router>
         );

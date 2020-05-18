@@ -6,7 +6,7 @@ import LoginComponent from "./components/login.component";
 import AddProducts from "./components/manage-products.component";
 import AllProducts from "./components/retrieve-products.component";
 import EditProducts from './components/edit-products.component';
-
+import AddDiscountComponent from "./components/add-discount.component";
 class App extends Component{
 
     render() {
@@ -24,7 +24,7 @@ class App extends Component{
                                     <Link to="/" className="nav-link">Home</Link>
                                 </li>
                                 <li className="navbar-item">
-                                    <Link to="/storage" className="nav-link">Store Manager</Link>
+                                    <Link to="/storage/products" className="nav-link">Store Manager</Link>
                                 </li>
                                 <li className="navbar-item">
                                     <Link to="/storage/all" className="nav-link">All Products</Link>
@@ -42,9 +42,10 @@ class App extends Component{
 
                     <Route path="/" exact component={Home}/>
                     <Route path="/login" component={LoginComponent}/>
-                    <Route path="/storage" component={AddProducts}/>
+                    <Route path="/storage/products" component={AddProducts}/>
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/edit/:id" exact component={EditProducts}/>
+                    <Route path="/storage/discounts/:id" exact component={AddDiscountComponent}/>
                 </div>
             </Router>
         );

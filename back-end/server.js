@@ -10,6 +10,7 @@ const PORT = 4000;
 const product = require('./Routes/product.routes');
 const ratings=require('./Routes/rating.route');
 const wishlists=require('./Routes/wishlist.route');
+const ps=require('./Routes/product-seeder');
 
 
 
@@ -30,12 +31,13 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('Hello world!'));
-//app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
+app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 
 //Routing configured
 app.use('/products', product);
 app.use('/ratings',ratings);
 app.use('/wishlists',wishlists);
+app.use('/',ps);
 
 app.listen(PORT, function () {
     console.log('Server is running on Port: ' + PORT);

@@ -8,16 +8,19 @@ import AddComment from "./components/addComment.component.js";
 import ShowCommentDetails from "./components/showCommentDetails.component.js";
 import ShowCommentList from "./components/showCommentList.component.js";
 import UpdateComment from "./components/updateComment.component.js";
+import productlist from "./components/productlist"
 
-import AddWishlist from "./components/addWishlist.component.js";
-import ShowWishlist from "./components/showWishlist.component.js";
+//import AddWishlist from "./components/addWishlist.component.js";
+//import ShowWishlist from "./components/showWishlist.component.js";
 
 
 class App extends Component{
 
     render() {
         return (
+
             <Router>
+                <productlist/>
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         {/*<a className="navbar-brand" href="https://github.com/RehaniH/SA" target="_blank">*/}
@@ -40,19 +43,20 @@ class App extends Component{
 
                     <Route path="/" exact component={Home}/>
                     <Route path="/login" component={LoginComponent}/>
-
                     <Route exact path='/comments' component={ShowCommentList} />
                     <Route path='/comments/add-comment' component={AddComment} />
                     <Route path='/comments/edit-comment/:id' component={UpdateComment} />
                     <Route path='/comments/show-comment/:id' component={ShowCommentDetails} />
 
-                    <Route path='/wishlist/add-wishlist' component={AddWishlist} />
-                    <Route path='/wishlist/show-wishlist/:username' component={ShowWishlist} />
+
 
                 </div>
             </Router>
+
         );
     }
 }
 
 export default App;
+//<Route path='/wishlist/add-wishlist' component={AddWishlist} />
+//<Route path='/wishlist/show-wishlist/:username' component={ShowWishlist} />

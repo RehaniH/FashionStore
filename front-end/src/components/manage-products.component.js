@@ -116,13 +116,7 @@ class AddProducts extends Component{
                 'content-type': 'multipart/form-data'
             }
         };
-        // const newProduct = {
-        //     name: this.state.product_name,
-        //     description: this.state.description,
-        //     category: this.state.category,
-        //     total_quantity: this.state.quantity,
-        //     price: this.state.price
-        // };
+
         axios.post('http://localhost:4000/products/upload', formData, config)
             .then(res => console.log(res.data));
 

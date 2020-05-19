@@ -9,7 +9,8 @@ let product = new Schema({
     retail_price: {type:Number},
     total_quantity:{type:Number},
     category:{ type: Schema.Types.ObjectId, ref:'Category', required:true},
-    product_image: {type:String}
+    product_image: {type:String},
+    discount: {type: Schema.Types.ObjectId, ref:'Discount'}
 });
 
 module.exports = Product = mongoose.model('Product', product);

@@ -129,24 +129,16 @@ exports.create_new_product = function (req, res) {
 exports.product_details = function (req, res) {
 
     let discount;
+
     Product
         .findOne({'ref_no':req.params.ref_no})
-        .populate('category')
-        .select('name ref_no retail_price description product_image total_quantity category')
+        .populate('category discount')
+        .select('name ref_no retail_price description product_image total_quantity category discount')
         .exec(function (err, product) {
             if(err)
                 res.status(400).json({'error':'getting product details failed'});
             else
-                Discount.find({'product_id': product._id}).exec(function (err, discountObj) {
-
-                    if(!discountObj)
-                        discount = 0;
-                    else
-                        discount = discountObj;
-
+                    res.status(200).json(product);
                 });
-                //product.discount = discount;
-                res.status(200).json(product);
-        })
 
 };

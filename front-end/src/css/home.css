@@ -1,0 +1,37 @@
+.cut {
+    font-size: 12px;
+    text-decoration: line-through;
+    text-decoration-color: green;
+}
+
+
+.details{
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.0;
+}
+
+.center{
+    color: darkslateblue;
+    line-height: 1.2;
+    text-align: center
+}
+
+.ref {
+    font-size: 12px;
+    color: cadetblue;
+}
+
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.div-border{
+    border-radius: 10px;
+    border: 1px solid darkslateblue;
+    margin: 10px;
+}
+
+
+

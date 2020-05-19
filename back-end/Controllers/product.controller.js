@@ -67,7 +67,7 @@ exports.update_product = function (req, res) {
 exports.getAllProducts = function(req, res) {
 
     Product.find()
-        .populate('category')
+        .populate('category discount')
         .exec(function (err, products) {
         if(err){
             res.status(404).json({'error_msg': 'not found'})

@@ -6,10 +6,15 @@ const mongoose = require('mongoose');
 const pRouter = express.Router();
 const path = require('path');
 const PORT = 4000;
+const passport = require("passport");
 
 //products routes
 const product = require('./Routes/product.routes');
 const discount = require('./Routes/discount.routes');
+
+//user routes
+const users = require("./Routes/user.routes");
+
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
 
 mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -17,7 +22,7 @@ mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const connection = mongoose.connection;
 connection.once('open', function () {
-   
+
     console.log('MongoDB connection established successfully');
 });
 connection.on('error', function () {
@@ -41,6 +46,13 @@ app.use('/products', product);
 app.use('/discount', discount);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./Config/passport")(passport);
+// Routes
+app.use("/api/users", users);
+
 app.listen(PORT, function () {
     console.log('Server is running on Port: ' + PORT);
 });

@@ -2,12 +2,16 @@ import React, {Component} from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class LoginComponent extends Component{
+class Register extends Component{
+
     constructor() {
         super();
         this.state = {
-            email: '',
-            password:''
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+            errors: {}
         };
     }
 
@@ -17,23 +21,26 @@ class LoginComponent extends Component{
 
     onSubmit = e => {
         e.preventDefault();
-
-        const userData = {
+        const newUser = {
+            name: this.state.name,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            password2: this.state.password2
         };
 
         axios
-            .post('http://localhost:4000/api/users/login', userData)
+            .post('http://localhost:4000/api/users/register', newUser)
             .then(res => {
                 this.setState({
+                    name: '',
                     email: '',
-                    password:''
+                    password: '',
+                    password2: ''
                 })
-                this.props.history.push('/dashboard');
+                this.props.history.push('/login');
             })
             .catch(err => {
-                console.log("Error in Login!");
+                console.log("Error in Register!");
             })
     };
 
@@ -58,6 +65,16 @@ class LoginComponent extends Component{
                                 <div className='form-group'>
                                     <input
                                         type='text'
+                                        placeholder='name'
+                                        name='name'
+                                        className='form-control'
+                                        value={this.state.name}
+                                        onChange={this.onChange}
+                                    />
+                                </div>
+                                <div className='form-group'>
+                                    <input
+                                        type='text'
                                         placeholder='email'
                                         name='email'
                                         className='form-control'
@@ -77,6 +94,16 @@ class LoginComponent extends Component{
                                         onChange={this.onChange}
                                     />
                                 </div>
+                                <div className='form-group'>
+                                    <input
+                                        type='text'
+                                        placeholder='password2'
+                                        name='password2'
+                                        className='form-control'
+                                        value={this.state.password2}
+                                        onChange={this.onChange}
+                                    />
+                                </div>
 
                                 <input
                                     type="submit"
@@ -89,6 +116,8 @@ class LoginComponent extends Component{
             </div>
         );
     }
-}
 
-export default LoginComponent;
+
+};
+
+export default Register;

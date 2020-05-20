@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../App.css';
+import '../../App.css';
 import axios from 'axios';
 
 
-class AddComment extends Component {
+class AddWishlist extends Component {
     constructor() {
         super();
         this.state = {
             username: '',
-            email:'',
-            ratings:'',
-            comment:'',
-            date_of:''
+            productname:'',
+            price:''
             
         };
     }
@@ -26,34 +24,30 @@ class AddComment extends Component {
 
         const data = {
             username: this.state.username,
-            email: this.state.email,
-            ratings: this.state.ratings,
-            comment: this.state.comment,
-            date_of: this.state.date_of,
-            publisher: this.state.publisher
+            productname: this.state.productname,
+            price: this.state.price
+            
         };
 
         axios
-            .post('http://localhost:4000/ratings/add', data)
+            .post('http://localhost:4000/wishlists/add/', data)
             .then(res => {
                 this.setState({
                     username: '',
-                    email:'',
-                    ratings:'',
-                    comment:'',
-                    date_of:'',
+                    productname:'',
+                    price:''
                     
                 })
                 this.props.history.push('/');
             })
             .catch(err => {
-                console.log("Error in AddComment!");
+                console.log("Error in AddWishlist!");
             })
     };
 
     render() {
         return (
-            <div className="AddComment">
+            <div className="AddWishlist">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
@@ -63,9 +57,9 @@ class AddComment extends Component {
                             </Link>
                         </div>
                         <div className="col-md-8 m-auto">
-                            <h1 className="display-4 text-center">Add Comment</h1>
+                            <h1 className="display-4 text-center">Add new wishlist</h1>
                             <p className="lead text-center">
-                                Create new book
+                                
                             </p>
 
                             <form noValidate onSubmit={this.onSubmit}>
@@ -83,11 +77,11 @@ class AddComment extends Component {
 
                                 <div className='form-group'>
                                     <input
-                                        type='email'
-                                        placeholder='email'
-                                        name='email'
+                                        type='productname'
+                                        placeholder='productname'
+                                        name='productname'
                                         className='form-control'
-                                        value={this.state.email}
+                                        value={this.state.productname}
                                         onChange={this.onChange}
                                     />
                                 </div>
@@ -95,35 +89,15 @@ class AddComment extends Component {
                                 <div className='form-group'>
                                     <input
                                         type='number'
-                                        placeholder='ratings'
-                                        name='ratings'
+                                        placeholder='price'
+                                        name='price'
                                         className='form-control'
-                                        value={this.state.ratings}
+                                        value={this.state.price}
                                         onChange={this.onChange}
                                     />
                                 </div>
 
-                                <div className='form-group'>
-                                    <input
-                                        type='text'
-                                        placeholder='Add Comment'
-                                        name='comment'
-                                        className='form-control'
-                                        value={this.state.comment}
-                                        onChange={this.onChange}
-                                    />
-                                </div>
-
-                                <div className='form-group'>
-                                    <input
-                                        type='date'
-                                        placeholder='Today'
-                                        name='date_of'
-                                        className='form-control'
-                                        value={this.state.date_of}
-                                        onChange={this.onChange}
-                                    />
-                                </div>
+                               
                           
                                 <input
                                     type="submit"
@@ -138,4 +112,4 @@ class AddComment extends Component {
     }
 }
 
-export default AddComment;
+export default AddWishlist;

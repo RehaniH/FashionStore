@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 let RatingSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+      
     }
     ,
     email: {
         type: String,
-        required: true
+       
     },
     ratings: {
         type: Number
@@ -18,10 +18,12 @@ let RatingSchema = new mongoose.Schema({
     comment: {
         type: String,
 
-    }
-    ,
+    },
     date_of: {
         type: Date
+    },
+    product_id:{
+        type: String
     }
 
 });

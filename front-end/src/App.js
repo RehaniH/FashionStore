@@ -3,14 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Home from "./components/home.component";
 import LoginComponent from "./components/login.component";
-import AddComment from "./components/addComment.component.js";
-// import CommentSingle from "./components/commentSingle.component.js";
-import ShowCommentDetails from "./components/showCommentDetails.component.js";
-import ShowCommentList from "./components/showCommentList.component.js";
-import UpdateComment from "./components/updateComment.component.js";
 
-import AddWishlist from "./components/addWishlist.component.js";
-import ShowWishlist from "./components/showWishlist.component.js";
+import AddComment from "./components/comment/addComment.component.js";
+import ShowCommentDetails from "./components/comment/showCommentDetails.component.js";
+import ShowCommentList from "./components/comment/showCommentList.component.js";
+import UpdateComment from "./components/comment/updateComment.component.js";
+
+
+import AddWishlist from "./components/wishlist/addWishlist.component.js";
+import ShowWishlist from "./components/wishlist/showWishlist.component.js";
 
 
 class App extends Component{
@@ -20,9 +21,7 @@ class App extends Component{
             <Router>
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        {/*<a className="navbar-brand" href="https://github.com/RehaniH/SA" target="_blank">*/}
-                        {/*    <img src={logo} width={wid} height={wid} alt="ImageIsHere" />*/}
-                        {/*</a> to add the logo*/}
+                       
                         <Link to="/" className="navbar-brand">ADELE to your door step</Link>
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav mr-auto">
@@ -37,17 +36,18 @@ class App extends Component{
                             </ul>
                         </div>
                     </nav>
-
+                    
                     <Route path="/" exact component={Home}/>
                     <Route path="/login" component={LoginComponent}/>
 
-                    <Route exact path='/comments' component={ShowCommentList} />
-                    <Route path='/comments/add-comment' component={AddComment} />
-                    <Route path='/comments/edit-comment/:id' component={UpdateComment} />
-                    <Route path='/comments/show-comment/:id' component={ShowCommentDetails} />
+                    <Route path='/comments' component={ShowCommentList} />
+                  
+                    <Route path='/add-comment' exact component={AddComment} />
+                    <Route path='/edit-comment/:id' exact component={UpdateComment} />
+                    <Route path='/show-comment/:id' exact component={ShowCommentDetails} />
 
-                    <Route path='/wishlist/add-wishlist' component={AddWishlist} />
-                    <Route path='/wishlist/show-wishlist/:username' component={ShowWishlist} />
+                    <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
+                    <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
 
                 </div>
             </Router>

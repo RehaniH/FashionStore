@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import { BrowserRouter as Router, Route, Switch  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -23,6 +24,13 @@ import UpdateComment from "./components/comment/updateComment.component.js";
 
 import AddWishlist from "./components/wishlist/addWishlist.component.js";
 import ShowWishlist from "./components/wishlist/showWishlist.component.js";
+import HomeComponent from './components/home.component'
+import ViewProductComponent from "./components/view-product.component";
+import AddDiscountComponent from "./components/add-discount.component";
+import AllProducts from "./components/retrieve-products.component";
+import AddProducts from "./components/manage-products.component";
+
+import HomePage from "./components/homepage.component"
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -43,11 +51,7 @@ if (localStorage.jwtToken) {
     }
 }
 
-
-
-
-class App extends Component{
-
+class App extends Component {
     render(){
         return (
             <Router>
@@ -59,21 +63,26 @@ class App extends Component{
                     <Route path="/add-category" component={AddCategory}/>
 
                     <Route path='/comments' component={ShowCommentList} />
-
                     <Route path='/add-comment' exact component={AddComment} />
                     <Route path='/edit-comment/:id' exact component={UpdateComment} />
                     <Route path='/show-comment/:id' exact component={ShowCommentDetails} />
 
                     <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
                     <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
+                    <Route path='/ex-homepage' exact component={HomePage} />
 
 
+
+                    <Route path="/home/:id" component={ViewProductComponent}/>
+                    <Route path="/storage/products" component={AddProducts}/>
+                    <Route path="/storage/all" component={AllProducts}/>
+                    <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
                     <Switch>
                         {
                             this.props.auth.user.role === 'user' ?
                                 <>
                                     {/*all user components here*/}
-                                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
                                 </>
                                 :
                                 this.props.auth.user.role === 'manager' ?
@@ -90,11 +99,8 @@ class App extends Component{
                                     </>
                         }
                     </Switch>
-
-
                 </div>
             </Router>
-
         );}
 }
 

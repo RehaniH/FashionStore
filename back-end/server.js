@@ -4,11 +4,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const pRouter = express.Router();
+const path = require('path');
 const PORT = 4000;
 const passport = require("passport");
 
 //products routes
 const product = require('./Routes/product.routes');
+const discount = require('./Routes/discount.routes');
 
 //user routes
 const users = require("./Routes/user.routes");
@@ -32,7 +34,9 @@ app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purp
 
 //Routing configured for products router
 app.use('/products', product);
+app.use('/discount', discount);
 
+app.use('/items', express.static(path.join(__dirname ,'items')));
 // Passport middleware
 app.use(passport.initialize());
 // Passport config

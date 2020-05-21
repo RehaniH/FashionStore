@@ -1,15 +1,19 @@
 import React, {Component} from "react";
 import axios from 'axios'
 import '../css/home.css'
+import {Link} from "react-router-dom";
+
 const Product = props =>(
     <div className='col-md-3 details div-border'>
-        <img className='img-center' src={props.product.product_image} height='240' width='180' alt={props.product.name}/>
+        <Link to={'/home/' + props.product.ref_no}>
+            <img className='img-center img' src={props.product.product_image} alt={props.product.name}/>
+        </Link>
         <p className='center'>{props.product.name}</p>
         <p className={props.product.discount !== undefined ? 'cut' :''}>Rs. {props.product.retail_price.toFixed(2)}</p>
         <p><span className='ref'>#{props.product.ref_no}    </span>
             {props.product.discount !== undefined ? '  Rs. '+ props.product.discount.discount_price.toFixed(2): ' '}
         </p>
-        <input value='Add to Cart' className='btn btn-danger img-center'/>
+            <input value='Add to Cart' className='btn btn-danger img-center'/>
     </div>
 );
 

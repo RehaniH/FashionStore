@@ -7,6 +7,7 @@ import AddProducts from "./components/manage-products.component";
 import AllProducts from "./components/retrieve-products.component";
 import EditProducts from './components/edit-products.component';
 import AddDiscountComponent from "./components/add-discount.component";
+import ViewProductComponent from './components/view-product.component'
 class App extends Component{
 
     render() {
@@ -46,6 +47,7 @@ class App extends Component{
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/edit/:id" exact component={EditProducts}/>
                     <Route path="/storage/discounts/:id" exact component={AddDiscountComponent}/>
+                    <Route path="/home/:id" exact component={ViewProductComponent}/>
                 </div>
             </Router>
         );

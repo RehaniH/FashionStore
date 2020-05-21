@@ -4,6 +4,8 @@ import '../../App.css';
 import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
 
 
 
@@ -29,10 +31,12 @@ class AddComment extends Component {
     
     onSubmit = e => {
         e.preventDefault();
+        
+        const { user } = this.props.auth;
 
         const data = {
           
-            username: this.state.username,
+            username: user.name,
             email: this.state.email,
             ratings: this.state.ratings,
             comment: this.state.comment,
@@ -86,6 +90,8 @@ class AddComment extends Component {
         );
         }
 
+        const { user } = this.props.auth;
+
         return (
       <div>
           
@@ -117,12 +123,14 @@ class AddComment extends Component {
                             <label htmlFor="email" className="col-sm-2 control-label">UserName:</label>
                             <div className="col-sm-10">
                             <input
+
                                         type='text'
                                         placeholder='username'
                                         name='username'
                                         className='form-control'
-                                        value={this.state.username}
+                                        value={user.name}
                                         onChange={this.onChange}
+                                        
                             />
                             </div>
                           </div>
@@ -205,7 +213,18 @@ class AddComment extends Component {
     }
 }
 
-export default AddComment;
+AddComment.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps
+)(AddComment);
 
 
  

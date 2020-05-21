@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../../App.css';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { FaSave } from 'react-icons/fa';

@@ -7,6 +7,8 @@ import Box from '@material-ui/core/Box';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { FiEdit3 } from 'react-icons/fi';
+import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
 
 
 
@@ -14,9 +16,7 @@ import { FiEdit3 } from 'react-icons/fi';
 
 const CommentSingle = (props) => {
     const  comment  = props.comment;
-    const username ="shane";
-    
-      
+    const user = props.user;
 
 
     return(
@@ -54,7 +54,7 @@ const CommentSingle = (props) => {
                   <h4 className="media-comment">
                   {comment.comment}
                   </h4>
-                  <div className={"text-right "+(comment.username == username? 'show' : 'hidden')}>
+                  <div className={"text-right "+(comment.username == user ? 'show' : 'hidden')}>
                     
                   <Link to={`/edit-comment/${comment._id}`}>
                   <FiEdit3 size="2em"></FiEdit3>
@@ -77,8 +77,18 @@ const CommentSingle = (props) => {
     )
 };
 
-export default CommentSingle;
+CommentSingle.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps
+)(CommentSingle);
 
 
 

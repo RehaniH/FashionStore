@@ -3,6 +3,8 @@ import '../../App.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CommentSingle from "./commentSingle.component.js";
+import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
 
 
 class ShowCommentList extends Component {
@@ -13,9 +15,11 @@ class ShowCommentList extends Component {
     };
   }
 
+  
+
   componentDidMount() {
     axios
-      .get('http://localhost:4000/ratings/get/12')
+      .get('http://localhost:4000/ratings/')
       .then(res => {
         this.setState({
           comments: res.data
@@ -28,6 +32,7 @@ class ShowCommentList extends Component {
 
 
   render() {
+    const { user } = this.props.auth;
     const comments = this.state.comments;
     console.log("Print Comments: " + comments);
     let commentList;
@@ -36,7 +41,7 @@ class ShowCommentList extends Component {
       commentList = "there is no comments";
     } else {
       commentList = comments.map((comment, k) =>
-        <CommentSingle comment={comment} key={k} />
+        <CommentSingle comment={comment} key={k} user={user.name} />
       );
     }
 
@@ -99,4 +104,15 @@ class ShowCommentList extends Component {
   }
 }
 
-export default ShowCommentList;
+ShowCommentList.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps
+)(ShowCommentList);

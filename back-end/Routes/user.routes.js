@@ -36,7 +36,7 @@ router.post("/register", (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
-                role: 'user'
+                role: req.body.role ? req.body.role : 'user'
             });
 // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
@@ -79,7 +79,7 @@ router.post("/register", (req, res) => {
                 payload,
                 keys.secretOrKey,
                 {
-                    expiresIn: 31556926 // 1 year in seconds
+                    expiresIn: 60 // 1 year in seconds
                 },
                 (err, token) => {
                     res.json({
@@ -125,7 +125,7 @@ router.post("/login", (req, res) => {
                     payload,
                     keys.secretOrKey,
                     {
-                        expiresIn: 31556926 // 1 year in seconds
+                        expiresIn: 60 // 1 year in seconds
                     },
                     (err, token) => {
                         res.json({
@@ -141,6 +141,38 @@ router.post("/login", (req, res) => {
             }
         });
     });
+});
+
+router.get('/allUsers', (req, res) => {
+    User.find({'role': 'user'})
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({ message: 'No users found' }));
+});
+
+router.get('/allManagers', (req, res) => {
+    User.find({'role': 'manager'})
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({ message: 'No managers found' }));
+});
+
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id)
+        .then(user => res.json(user))
+        .catch(err => res.status(404).json({ message: 'No user found' }));
+});
+
+router.put('/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body)
+        .then(user => res.json({ message: 'Updated successfully' }))
+        .catch(err =>
+            res.status(400).json({ error: 'Unable to update the Database' })
+        );
+});
+
+router.delete('/:id', (req, res) => {
+    User.findByIdAndDelete(req.params.id, req.body)
+        .then(user => res.json({ message: 'User deleted successfully' }))
+        .catch(err => res.status(404).json({ error: 'No such user' }));
 });
 
 module.exports = router;

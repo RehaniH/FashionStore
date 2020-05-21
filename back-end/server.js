@@ -13,6 +13,9 @@ const product = require('./Routes/product.routes');
 //user routes
 const users = require("./Routes/user.routes");
 
+//category routes
+const category = require("./Routes/category.routes");
+
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
 
 mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -32,6 +35,9 @@ app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purp
 
 //Routing configured for products router
 app.use('/products', product);
+
+//Routing configured for category router
+app.use('/category', category);
 
 // Passport middleware
 app.use(passport.initialize());

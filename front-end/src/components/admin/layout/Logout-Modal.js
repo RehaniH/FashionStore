@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
-import {logoutUser} from "../../actions/authActions";
+import {logoutUser} from "../../../actions/authActions";
 
 class Logout extends Component {
     onLogoutClick = e => {

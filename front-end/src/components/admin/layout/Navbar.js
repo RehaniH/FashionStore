@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
+import {logoutUser} from "../../../actions/authActions";
 
 class Navbar extends Component {
     render() {
@@ -16,7 +17,7 @@ class Navbar extends Component {
 
                     <li className="nav-item dropdown no-arrow d-sm-none">
                         <a className="nav-link dropdown-toggle" href="/" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i className="fas fa-search fa-fw"></i>
+                            <i className="fas fa-search fa-fw"/>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                             <form className="form-inline mr-auto w-100 navbar-search">
@@ -77,5 +78,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    { logoutUser }
 )(Navbar);

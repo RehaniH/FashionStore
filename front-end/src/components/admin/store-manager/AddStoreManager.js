@@ -1,32 +1,23 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter  } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+import { registerUser } from "../../../actions/authActions";
 import classnames from "classnames";
 
-class Login extends Component {
+class AddStoreManager extends Component {
     constructor() {
         super();
         this.state = {
+            name: "",
             email: "",
             password: "",
+            password2: "",
             errors: {}
         };
     }
 
-    componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            const { from } = this.props.location.state || { from: { pathname: '/dashboard' } }
-            this.props.history.push(from); //redirect user to the page they are trying to access or the dashboard
-        }
         if (nextProps.errors) {
             this.setState({
                 errors: nextProps.errors
@@ -37,14 +28,19 @@ class Login extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
+
     onSubmit = e => {
         e.preventDefault();
-        const userData = {
+        const newUser = {
+            name: this.state.name,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            password2: this.state.password2,
+            role: 'manager'
         };
-        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-        console.log(userData);
+
+        this.props.registerUser(newUser, this.props.history);
+        console.log(newUser);
     };
 
     render() {
@@ -59,13 +55,27 @@ class Login extends Component {
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
-                                <b>Login</b> below
+                                <b>Register</b> below
                             </h4>
                             <p className="grey-text text-darken-1">
-                                Don't have an account? <Link to="/register">Register</Link>
+                                Already have an account? <Link to="/login">Log in</Link>
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.name}
+                                    error={errors.name}
+                                    id="name"
+                                    type="text"
+                                    className={classnames("", {
+                                        invalid: errors.name
+                                    })}
+                                />
+                                <label htmlFor="name">Name</label>
+                                <span className="red-text">{errors.name}</span>
+                            </div>
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
@@ -74,14 +84,11 @@ class Login extends Component {
                                     id="email"
                                     type="email"
                                     className={classnames("", {
-                                        invalid: errors.email || errors.emailnotfound
+                                        invalid: errors.email
                                     })}
                                 />
                                 <label htmlFor="email">Email</label>
-                                <span className="red-text">
-                                     {errors.email}
-                                     {errors.emailnotfound}
-                                 </span>
+                                <span className="red-text">{errors.email}</span>
                             </div>
                             <div className="input-field col s12">
                                 <input
@@ -91,14 +98,25 @@ class Login extends Component {
                                     id="password"
                                     type="password"
                                     className={classnames("", {
-                                        invalid: errors.password || errors.passwordincorrect
+                                        invalid: errors.password
                                     })}
                                 />
                                 <label htmlFor="password">Password</label>
-                                <span className="red-text">
-                                    {errors.password}
-                                    {errors.passwordincorrect}
-                                </span>
+                                <span className="red-text">{errors.password}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.password2}
+                                    error={errors.password2}
+                                    id="password2"
+                                    type="password"
+                                    className={classnames("", {
+                                        invalid: errors.password2
+                                    })}
+                                />
+                                <label htmlFor="password2">Confirm Password</label>
+                                <span className="red-text">{errors.password2}</span>
                             </div>
                             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                                 <button
@@ -111,7 +129,7 @@ class Login extends Component {
                                     type="submit"
                                     className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                                 >
-                                    Login
+                                    Sign up
                                 </button>
                             </div>
                         </form>
@@ -122,16 +140,18 @@ class Login extends Component {
     }
 }
 
-Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
+AddStoreManager.propTypes = {
+    registerUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
     auth: state.auth,
     errors: state.errors
 });
+
 export default connect(
     mapStateToProps,
-    { loginUser }
-)(Login);
+    { registerUser }
+)(withRouter(AddStoreManager));

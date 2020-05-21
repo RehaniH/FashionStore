@@ -30,7 +30,7 @@ import AddDiscountComponent from "./components/add-discount.component";
 import AllProducts from "./components/retrieve-products.component";
 import AddProducts from "./components/manage-products.component";
 
-import HomePage from "./components/homepage.component"
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -69,7 +69,7 @@ class App extends Component {
 
                     <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
                     <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
-                    <Route path='/ex-homepage' exact component={HomePage} />
+                    
 
 
 

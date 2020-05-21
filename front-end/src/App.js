@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import { BrowserRouter as Router, Route, Switch  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -15,6 +16,11 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import Some from "./components/something"
 import AddCategory from "./components/add-category.component";
+import HomeComponent from './components/home.component'
+import ViewProductComponent from "./components/view-product.component";
+import AddDiscountComponent from "./components/add-discount.component";
+import AllProducts from "./components/retrieve-products.component";
+import AddProducts from "./components/manage-products.component";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -44,12 +50,16 @@ class App extends Component {
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route path="/add-category" component={AddCategory}/>
+                    <Route path="/home/:id" component={ViewProductComponent}/>
+                    <Route path="/storage/products" component={AddProducts}/>
+                    <Route path="/storage/all" component={AllProducts}/>
+                    <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
                     <Switch>
                         {
                             this.props.auth.user.role === 'user' ?
                                 <>
                                     {/*all user components here*/}
-                                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
                                 </>
                                 :
                                 this.props.auth.user.role === 'manager' ?

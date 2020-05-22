@@ -116,7 +116,7 @@ exports.create_new_product = function (req, res) {
         product_image: url + '/items/' + req.file.filename
 
     });
-    
+
     product.save()
         .then(product => {
             res.status(200).json(product);

@@ -10,6 +10,9 @@ const passport = require("passport");
 
 //products routes
 const product = require('./Routes/product.routes');
+const ratings=require('./Routes/rating.route');
+const wishlists=require('./Routes/wishlist.route');
+
 const discount = require('./Routes/discount.routes');
 
 //user routes
@@ -28,12 +31,17 @@ connection.on('error', function () {
     console.log('MongoDB connection error.')
 });
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
+app.use(express.json({ extended: false }));
+app.get('/', (req, res) => res.send('Hello world!'));
+//app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 
 //Routing configured for products router
 app.use('/products', product);
+app.use('/ratings',ratings);
+app.use('/wishlists',wishlists);
 app.use('/discount', discount);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));

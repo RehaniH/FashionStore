@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/get/:username', (req, res) => {
-    Wishlists.findOne({ 'username':  req.params.username})
+    Wishlists.find({ 'username':  req.params.username})
         .then(wish => res.json(wish))
         .catch(err => res.status(404).json({ noratingfound: 'No username found' }));
 });

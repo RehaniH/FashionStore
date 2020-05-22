@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .App-logo {
@@ -71,5 +71,5 @@
 
 .card-container {
   width: 250px;
-  border: 1px solid rgba(0, 0, .125);
+  border: 1px solid rgba(0, 0, .125,0);
 }

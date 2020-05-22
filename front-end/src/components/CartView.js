@@ -74,40 +74,54 @@ var tot=0;
         const { cart }=this.state
 
 
+
         return (
+<div style={{margin:"52px"}}>
 
-
-            <table className="table table-striped" >
-                <thead>
+            <table className="table table-striped" style={{borderColor:"black",borderStyle:"solid"}}>
+                <thead style={{fontSize: "larger",backgroundColor:"black",color:"white"}}>
                 <tr>
                     <th scope="col">Cart</th>
                     <th scope="col">Quantity</th>
                     <th scope="col"> Item Price</th>
                     <th scope="col"> Total</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 {cart.map((post,index) => <tbody key={post.id}>
-                    <tr>
+                    <tr style={{backgroundColor:"gainsboro"}}>
                         <td>{post.title}</td>
-                        <td>{post.quantity}     <input defaultValue = {this.state.newqnty} onChange={(e) => cart[index].quantity = e.target.value}  type="number"/>
-                            <button type="submit" className="btn btn-success" onClick={e => this.updateQnty(e,post._id,index)}>Update Quantity</button><pre></pre><button type="button" className="btn btn-danger" onClick={this.deleteItem.bind(this,post._id)}>Delete Item</button> </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{post.quantity} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input defaultValue = {post.quantity} onChange={(e) => cart[index].quantity = e.target.value}  type="number" name="quantity" min="1" max="100"/>
+                            &nbsp;&nbsp;     <button type="submit" className="btn btn-success" onClick={e => this.updateQnty(e,post._id,index)}>Update Quantity</button><br></br>
+                             </td>
+
                         <td>{post.price}</td>
                         <td> {post.quantity*post.price}</td>
-                    </tr>
+                        <td> <button type="button" className="btn btn-danger" onClick={this.deleteItem.bind(this,post._id)}>Delete Item</button> </td>
+
+                        <br></br> <br></br><br></br><br></br></tr>
 
                 </tbody>)
 
                 }
+            </table>
+    <br></br>
+
+            <div style={{margin:"auto",width:"25%",border:" 3px solid #73AD21",padding:"15px",textAlign:"center",backgroundColor: "white"}}>
 
 <strong>Sub Total : {this.getSubTotal()}
 </strong>
+                <br></br><br></br>
+                <button style={{textAlign:"center",paddingRight:"55px",paddingLeft:"55px"}} type="button"  onClick={() => this.props.history.push('/pay/' + this.getSubTotal())} className="btn btn-success">Checkout</button>
 
-                <button type="button"  onClick={() => this.props.history.push('/pay/' + this.getSubTotal())} className="btn btn-outline-success">Checkout</button>
+                </div>
+
+
+</div>
 
 
 
-
-                </table>
 
 
 

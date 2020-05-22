@@ -20,6 +20,12 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(404).json({ noratingfound: 'No ratings found' }));
 });
 
+router.get('/get/:product_id', (req, res) => {
+    Ratings.find({ 'product_id':  req.params.product_id})
+        .then(rating => res.json(rating))
+        .catch(err => res.status(404).json({ noratingfound: 'No product id found' }));
+});
+
 
 router.post('/add', (req, res) => {
 

@@ -1,8 +1,14 @@
 const express = require('express');
 const Product = require('../Models/product.model');
+const Category = require('../Models/category.model')
 
-exports.test = function (req, res) {
-    res.send('Greetings from test controller');
+exports.category_create = function (req, res) {
+    let category = new Category(req.body);
+    category.save()
+        .then(category => { res.status(200).json(category)})
+        .catch(err => {
+            res.status(400).send('adding new category failed');
+        });
 };
 
 
@@ -10,7 +16,7 @@ exports.create_product = function (req, res) {
     let product = new Product(req.body);
     product.save()
         .then(product => {
-            res.status(200).json({'todo': 'product added successfully'})
+            res.status(200).json(product);
         })
         .catch(err=>{
             res.status(400).send('adding new product failed');
@@ -27,9 +33,10 @@ exports.update_product = function (req, res) {
             product.name = req.body.name;
             product.description = req.body.description;
 
-            product.save().then(product =>{
-                res.json('todo updated');
-            })
+            product.save()
+                .then(product =>{
+                res.json('product updated');
+                })
                 .catch(err =>{
                     res.status(400).send("update not possible");
                 })
@@ -41,23 +48,36 @@ exports.update_product = function (req, res) {
 
 exports.getAllProducts = function(req, res) {
 
-    Product.find(function (err, products) {
+    Product.find().populate('category').exec(function (err, products) {
         if(err){
-            console.log(err)
+            res.status(404).json({'error_msg': 'not found'})
         }else{
             res.json(products)
         }
-    })
+    });
+};
+
+exports.getProductsByCategoryId = function(req, res) {
+
+    Product.find({'category':req.params.id}).exec(function (err, products) {
+        if(err){
+            res.status(404).json({'error_msg': 'not found'})
+        }else{
+            res.json(products)
+        }
+    });
 };
 
 exports.getProductsById = function(req, res) {
 
     let id = req.params.id;
-    Product.findById(id, function (err, product) {
-        if(err){
-            console.log(err)
-        }else{
-            res.json(product)
-        }
-    })
+    Product.findById(id)
+        .populate('category')
+        .exec(function (err, product) {
+            if(err){
+                console.log(err)
+            }else{
+                res.json(product)
+            }
+        });
 };

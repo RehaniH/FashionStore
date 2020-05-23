@@ -18,6 +18,7 @@ import UsersList from "./components/admin/user/UsersList";
 import ManagersList from "./components/admin/store-manager/ManagersList";
 import CategoryList from "./components/admin/category/CategoryList";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
+import UpdateProfile from "./components/admin/UpdateProfile";
 
 
 // Check for token to keep user logged in
@@ -62,6 +63,7 @@ class App extends Component {
                      <PrivateRoute exact path="/categoryList" component={CategoryList}/>
                      <PrivateRoute exact path="/addCategory" component={AddCategory}/>
                      <PrivateRoute exact path="/updateCategory/:id" component={UpdateCategory}/>
+                     <PrivateRoute exact path="/updateProfile/:id" component={UpdateProfile}/>
 
                     </Switch>
                 </div>

@@ -45,6 +45,7 @@ class Dashboard extends Component {
             })
     }
     render() {
+        const { user } = this.props.auth;
         const { users } = this.state;
         const { manager } = this.state;
         const { category } = this.state;
@@ -57,8 +58,8 @@ class Dashboard extends Component {
                             <div id="content">
                                 <Navbar/>
                                 <div className="container-fluid">
+                                    <h1 className="mb-4 font-weight-bold">Welcome, { user.name }</h1>
                                     <div className="row">
-
                                         <div className="col-xl-3 col-md-6 mb-4">
                                             <div className="card border-left-success shadow h-100 py-2">
                                                 <div className="card-body">

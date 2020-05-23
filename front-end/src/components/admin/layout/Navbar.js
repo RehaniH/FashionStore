@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {logoutUser} from "../../../actions/authActions";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
     render() {
@@ -41,19 +42,10 @@ class Navbar extends Component {
                             <img alt="profile" className="img-profile rounded-circle" src="https://i7.pngguru.com/preview/340/946/334/avatar-user-computer-icons-software-developer-avatar-thumbnail.jpg" />
                         </a>
                         <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a className="dropdown-item" href="/">
+                            <Link className="dropdown-item" to={"/updateProfile/" + user.id}>
                                 <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
-                            </a>
-                            <a className="dropdown-item" href="/">
-                                <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a className="dropdown-item" href="/">
-                                <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div className="dropdown-divider"></div>
+                            </Link>
                             <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
                                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout

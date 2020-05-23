@@ -83,8 +83,7 @@ class UsersList extends Component {
                                                         <td>{user.name}</td>
                                                         <td>{user.email}</td>
                                                         <td>
-                                                            <Link to={"editemployee/" + user._id} className="btn btn-info">Edit</Link>
-                                                            <button className="btn btn-danger ml-3"  onClick={this.onDeleteClick.bind(this,user._id)} >Delete</button>
+                                                            <button className="btn btn-danger"  onClick={this.onDeleteClick.bind(this,user._id)} >Delete</button>
                                                         </td>
                                                     </tr>
                                                 )

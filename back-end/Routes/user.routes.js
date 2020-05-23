@@ -10,6 +10,7 @@ const validateLoginInput = require("../Validation/login");
 const User = require("../Models/user.model");
 const  nodemailer = require("nodemailer");
 
+//Authenticate nodemailer
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth:{
@@ -24,7 +25,7 @@ const transporter = nodemailer.createTransport({
 router.post("/register", (req, res) => {
     // Form validation
     const { errors, isValid } = validateRegisterInput(req.body);
-// Check validation
+    // Check validation
     if (!isValid) {
         return res.status(400).json(errors);
     }
@@ -38,7 +39,7 @@ router.post("/register", (req, res) => {
                 password: req.body.password,
                 role: req.body.role ? req.body.role : 'user'
             });
-// Hash password before saving in database
+            // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
@@ -50,15 +51,16 @@ router.post("/register", (req, res) => {
                 });
             });
 
+            //set mail options
             const mailOptions = {
                 from: keys.ADMIN_EMAIL,
                 to: req.body.email,
-                subject:'Hello',
-                // text: req.body.password,
+                subject:'Login Credentials [CONFIDENTIAL]',
                 html: '<h1>Hey, ' + req.body.name + '</h1><p>Your login credentials are:</p><p>Email: ' + req.body.email + '</p>\n' +
                     '<p>Password: ' + req.body.password + '</p>'
             }
 
+            //sending the mail
             transporter.sendMail(mailOptions, function (error,info) {
                 if(error){
                     console.log(error);

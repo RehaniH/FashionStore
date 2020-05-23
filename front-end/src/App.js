@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch  } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -49,37 +47,22 @@ class App extends Component {
                     <Route exact path="/" component={Landing} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
-                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                    <Switch>
-                        {
-                            this.props.auth.user.role === 'user' ?
-                                <>
-                                    {/*all user components here*/}
-                                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                                </>
-                                :
-                                this.props.auth.user.role === 'manager' ?
-                                    <>
-                                        {/*all store manager components here*/}
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
 
-                                    </>
-                                    :
-                                    this.props.auth.user.role === 'admin' ?
-                                    <>
-                                        {/*all admin components here*/}
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                                        <PrivateRoute exact path="/addStoreManager" component={AddStoreManager}/>
-                                        <PrivateRoute exact path="/addUser" component={AddUser}/>
-                                        <PrivateRoute exact path="/usersList" component={UsersList}/>
-                                        <PrivateRoute exact path="/managersList" component={ManagersList}/>
-                                        <PrivateRoute exact path="/categoryList" component={CategoryList}/>
-                                        <PrivateRoute exact path="/addCategory" component={AddCategory}/>
-                                        <PrivateRoute exact path="/updateCategory/:id" component={UpdateCategory}/>
-                                    </>
-                                        :
-                                        <></>
-                        }
+                    <Switch>
+                    {/*all user components here*/}
+
+                    {/*all store manager components here*/}
+
+                    {/*all admin components here*/}
+                     <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                     <PrivateRoute exact path="/addStoreManager" component={AddStoreManager}/>
+                     <PrivateRoute exact path="/addUser" component={AddUser}/>
+                     <PrivateRoute exact path="/usersList" component={UsersList}/>
+                     <PrivateRoute exact path="/managersList" component={ManagersList}/>
+                     <PrivateRoute exact path="/categoryList" component={CategoryList}/>
+                     <PrivateRoute exact path="/addCategory" component={AddCategory}/>
+                     <PrivateRoute exact path="/updateCategory/:id" component={UpdateCategory}/>
+
                     </Switch>
                 </div>
             </Router>
@@ -87,12 +70,4 @@ class App extends Component {
     }
 }
 
-App.propTypes = {
-    auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-    auth: state.auth
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

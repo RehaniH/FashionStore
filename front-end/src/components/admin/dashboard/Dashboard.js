@@ -1,19 +1,55 @@
 import React, { Component } from "react";
-import {BrowserRouter as Router, Switch} from 'react-router-dom'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+import { FaUsers, FaUserSecret, FaTags } from 'react-icons/fa';
+import { Redirect } from 'react-router-dom';
 
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import Footer from "../layout/Footer";
 import Logout from "../layout/Logout-Modal";
+import axios from "axios";
 
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            users: '',
+            manager: '',
+            category: ''
+        };
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:4000/api/users/allUsers')
+            .then(response => {
+                this.setState({ users: response.data.length });
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+        axios.get('http://localhost:4000/api/users/allManagers')
+            .then(response => {
+                this.setState({ manager: response.data.length });
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+        axios.get('http://localhost:4000/category/categoriesCount')
+            .then(response => {
+                this.setState({ category: response.data });
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+    }
     render() {
+        const { users } = this.state;
+        const { manager } = this.state;
+        const { category } = this.state;
+        if(true) {
         return (
-            <Router>
                 <div>
                     <div id="wrapper">
                         <Sidebar/>
@@ -21,10 +57,72 @@ class Dashboard extends Component {
                             <div id="content">
                                 <Navbar/>
                                 <div className="container-fluid">
-                                    <Switch>
-                                    {/*<Route path="/del" component={DEL}/>*/}
-                                    {/*<Route path="/add" component={SM_ADD}/>*/}
-                                    </Switch>
+                                    <div className="row">
+
+                                        <div className="col-xl-3 col-md-6 mb-4">
+                                            <div className="card border-left-success shadow h-100 py-2">
+                                                <div className="card-body">
+                                                    <div className="row no-gutters align-items-center">
+                                                        <div className="col mr-2">
+                                                            <div
+                                                                className="text-xs font-weight-bold text-success text-uppercase mb-1">Customers
+                                                            </div>
+                                                            <div
+                                                                className="h5 mb-0 font-weight-bold text-gray-800">{ users }
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-auto">
+                                                            <FaUsers size={32} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-xl-3 col-md-6 mb-4">
+                                            <div className="card border-left-info shadow h-100 py-2">
+                                                <div className="card-body">
+                                                    <div className="row no-gutters align-items-center">
+                                                        <div className="col mr-2">
+                                                            <div
+                                                                className="text-xs font-weight-bold text-info text-uppercase mb-1">Store
+                                                                Managers
+                                                            </div>
+                                                            <div className="row no-gutters align-items-center">
+                                                                <div className="col-auto">
+                                                                    <div
+                                                                        className="h5 mb-0 mr-3 font-weight-bold text-gray-800">{ manager }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-auto">
+                                                            <FaUserSecret size={32}  />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-xl-3 col-md-6 mb-4">
+                                            <div className="card border-left-warning shadow h-100 py-2">
+                                                <div className="card-body">
+                                                    <div className="row no-gutters align-items-center">
+                                                        <div className="col mr-2">
+                                                            <div
+                                                                className="text-xs font-weight-bold text-warning text-uppercase mb-1">Categories
+                                                            </div>
+                                                            <div className="h5 mb-0 font-weight-bold text-gray-800">{ category }
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-auto">
+                                                                <FaTags size={32} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <Footer/>
@@ -35,13 +133,14 @@ class Dashboard extends Component {
                     </a>
                     <Logout/>
                 </div>
-            </Router>
         );
+        } else {
+            return <Redirect to='/login' />
+        }
     }
 }
 
 Dashboard.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 };
 
@@ -50,6 +149,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps,
-    { logoutUser }
+    mapStateToProps
 )(Dashboard);

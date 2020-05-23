@@ -47,7 +47,6 @@ router.post("/register", (req, res) => {
                         .save()
                         .then(user => res.json(user))
                         .catch(err => console.log(err));
-                    console.log("new user: "+newUser)
                 });
             });
 
@@ -56,7 +55,7 @@ router.post("/register", (req, res) => {
                 to: req.body.email,
                 subject:'Hello',
                 // text: req.body.password,
-                html: '<h1>Hi ' + req.body.name + '</h1><p>Your credentials are:</p><p>Email: ' + req.body.email + '</p>\n' +
+                html: '<h1>Hey, ' + req.body.name + '</h1><p>Your login credentials are:</p><p>Email: ' + req.body.email + '</p>\n' +
                     '<p>Password: ' + req.body.password + '</p>'
             }
 
@@ -74,12 +73,12 @@ router.post("/register", (req, res) => {
                 id: user.id,
                 role: newUser.role
             };
-// Sign token
+            // Sign token
             jwt.sign(
                 payload,
                 keys.secretOrKey,
                 {
-                    expiresIn: 60 // 1 year in seconds
+                    expiresIn: 3600 // 1 hour in seconds
                 },
                 (err, token) => {
                     res.json({
@@ -125,7 +124,7 @@ router.post("/login", (req, res) => {
                     payload,
                     keys.secretOrKey,
                     {
-                        expiresIn: 60 // 1 year in seconds
+                        expiresIn: 3600 // 1 hour in seconds
                     },
                     (err, token) => {
                         res.json({
@@ -149,9 +148,21 @@ router.get('/allUsers', (req, res) => {
         .catch(err => res.status(404).json({ message: 'No users found' }));
 });
 
+router.get('/userCount', (req, res) => {
+    User.find({'role': 'user'})
+        .then(users => res.json(users.length))
+        .catch(err => res.status(404).json({ message: 'No users found' }));
+});
+
 router.get('/allManagers', (req, res) => {
     User.find({'role': 'manager'})
         .then(users => res.json(users))
+        .catch(err => res.status(404).json({ message: 'No managers found' }));
+});
+
+router.get('/managerCount', (req, res) => {
+    User.find({'role': 'manager'})
+        .then(users => res.json(users.length))
         .catch(err => res.status(404).json({ message: 'No managers found' }));
 });
 

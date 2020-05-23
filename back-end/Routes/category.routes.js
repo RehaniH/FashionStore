@@ -18,6 +18,12 @@ router.get('/allCategories', (req, res) => {
         .catch(err => res.status(404).json({ message: 'No Categories found' }));
 });
 
+router.get('/categoriesCount', (req, res) => {
+    Category.find()
+        .then(category => res.json(category.length))
+        .catch(err => res.status(404).json({ message: 'No Categories found' }));
+});
+
 router.get('/:id', (req, res) => {
     Category.findById(req.params.id)
         .then(category => res.json(category))

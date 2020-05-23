@@ -1,30 +1,52 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import axios from 'axios';
+
+import Sidebar from "../layout/Sidebar";
+import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
+import Logout from "../layout/Logout-Modal";
 
 class UpdateCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name:'',
-            description:''
+            description:'',
+            errors: {}
         };
     }
 
+    handleValidation() {
+        let name = this.state.name;
+        let errors = {};
+        let formIsValid = true;
+
+        if(!name){
+            formIsValid = false;
+            errors["name"] = "Name field is required";
+        }
+
+        this.setState({errors: errors});
+        return formIsValid;
+    }
+
     componentDidMount() {
-        // console.log("Print id: " + this.props.match.params.id);
-        axios
-            .get('http://localhost:4000/category/'+this.props.match.params.id)
-            .then(res => {
-                // this.setState({...this.state, book: res.data})
-                this.setState({
-                    name: res.data.name,
-                    description: res.data.description
+            axios
+                .get('http://localhost:4000/category/' + this.props.match.params.id)
+                .then(res => {
+                    // this.setState({...this.state, book: res.data})
+                    this.setState({
+                        name: res.data.name,
+                        description: res.data.description
+                    })
                 })
-            })
-            .catch(err => {
-                console.log("Error from UpdateBookInfo");
-            })
+                .catch(err => {
+                    console.log("Error from UpdateBookInfo");
+                })
+
     };
 
     onChange = e => {
@@ -34,75 +56,112 @@ class UpdateCategory extends Component {
     onSubmit = e => {
         e.preventDefault();
 
-        const data = {
-            name: this.state.name,
-            description: this.state.description
-        };
 
-        axios
-            .put('http://localhost:4000/category/'+this.props.match.params.id, data)
-            .then(res => {
-                this.props.history.push('/categoryList');
-            })
-            .catch(err => {
-                console.log("Error in UpdateBookInfo!");
-            })
+        if(this.handleValidation()) {
+            const data = {
+                name: this.state.name,
+                description: this.state.description
+            };
+
+            axios
+                .put('http://localhost:4000/category/' + this.props.match.params.id, data)
+                .then(res => {
+                    this.props.history.push('/categoryList');
+                })
+                .catch(err => {
+                    console.log("Error in UpdateBookInfo!");
+                })
+        }
     };
 
 
     render() {
+        if(this.props.auth.user.role === 'admin') {
         return (
-            <div className="UpdateBookInfo">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-8 m-auto">
-                            <br />
-                            <Link to="/categoryList" className="btn btn-outline-warning float-left">
-                                Show BooK List
-                            </Link>
-                        </div>
-                        <div className="col-md-8 m-auto">
-                            <h1 className="display-4 text-center">Edit Book</h1>
-                            <p className="lead text-center">
-                                Update Book's Info
-                            </p>
-                        </div>
-                    </div>
+            <div>
+                <div id="wrapper">
+                    <Sidebar/>
+                    <div id="content-wrapper" className="d-flex flex-column">
+                        <div id="content">
+                            <Navbar/>
+                            <div className="container-fluid">
+                                <div className="col-lg-6 m-auto">
+                                    <Link to="/categoryList" className="btn mb-3 btn-info">
+                                        Show Categories
+                                    </Link>
+                                </div>
+                                <div>
+                                    <div className="row">
+                                        <div className="col-lg-6 m-auto">
+                                            <div className="card shadow mb-4">
+                                                <div className="card-header py-3">
+                                                    <h6 className="m-0 font-weight-bold text-primary">Edit Category</h6>
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className="UpdateBookInfo">
+                                                        <div className="container">
+                                                            <form noValidate onSubmit={this.onSubmit}>
+                                                                <div className='form-group'>
+                                                                    <label htmlFor="title">Name</label>
+                                                                    <input
+                                                                        type='text'
+                                                                        name='name'
+                                                                        className='form-control'
+                                                                        value={this.state.name}
+                                                                        onChange={this.onChange}
+                                                                    />
+                                                                    <span style={{color: "red"}}>{this.state.errors["name"]}</span>
+                                                                </div>
+                                                                <div className='form-group'>
+                                                                    <label htmlFor="description">Description</label>
+                                                                    <input
+                                                                        type='text'
+                                                                        name='description'
+                                                                        className='form-control'
+                                                                        value={this.state.description}
+                                                                        onChange={this.onChange}
+                                                                    />
+                                                                </div>
 
-                    <div className="col-md-8 m-auto">
-                        <form noValidate onSubmit={this.onSubmit}>
-                            <div className='form-group'>
-                                <label htmlFor="title">Name</label>
-                                <input
-                                    type='text'
-                                    placeholder='Title of the Book'
-                                    name='name'
-                                    className='form-control'
-                                    value={this.state.name}
-                                    onChange={this.onChange}
-                                />
+                                                                <button type="submit"
+                                                                        className="btn btn-info btn-lg btn-block">Update
+                                                                    Category
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <br />
-                            <div className='form-group'>
-                                <label htmlFor="description">Description</label>
-                                <input
-                                    type='text'
-                                    placeholder='Describe this book'
-                                    name='description'
-                                    className='form-control'
-                                    value={this.state.description}
-                                    onChange={this.onChange}
-                                />
-                            </div>
-
-                            <button type="submit" className="btn btn-outline-info btn-lg btn-block">Update Book</button>
-                        </form>
+                        </div>
+                        <Footer/>
                     </div>
-
                 </div>
+                <a className="scroll-to-top rounded" href="#page-top">
+                    <i className="fas fa-angle-up" />
+                </a>
+                <Logout/>
             </div>
         );
+        } else {
+            return <Redirect to='/login' />
+        }
     }
 }
 
-export default UpdateCategory;
+UpdateCategory.propTypes = {
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(
+    mapStateToProps
+)(UpdateCategory);

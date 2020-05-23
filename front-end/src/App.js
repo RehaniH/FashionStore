@@ -66,7 +66,7 @@ class App extends Component {
                                     <>
                                         {/*all store manager components here*/}
                                         <PrivateRoute exact path="/something" component={Some} />
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                                        <PrivateRoute exact path="/dashboard" component={AllProducts} />
                                     </>
                                     :
                                     <>

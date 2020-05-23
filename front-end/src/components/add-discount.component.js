@@ -20,6 +20,12 @@ class AddDiscountComponent extends Component{
             category:'',
             start_date: new Date(),
             end_date: new Date(),
+
+            errors:{
+                discount_percentage: '',
+                discount: '',
+                discount_price: '',
+            }
         };
 
         this.onChangeDiscount  = this.onChangeDiscount.bind(this);
@@ -37,7 +43,7 @@ class AddDiscountComponent extends Component{
                     product_name: response.data.name,
                     category: response.data.category
                 });
-                console.log(response.data.discount.start_date);
+                
                 if(response.data.discount !== undefined){
                     this.setState({
                         discount_percentage: response.data.discount.discount_percentage,

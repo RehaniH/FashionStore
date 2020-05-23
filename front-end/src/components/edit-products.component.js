@@ -19,10 +19,10 @@ class editProductsComponent extends Component {
     }
 
     componentDidMount() {
-        axios.get('' + this.props.match.params.id)
+        axios.get('http://localhost:4000/products/ref-no/' + this.props.match.params.id)
             .then(response=>{
                 this.setState({
-                    product_name:response.data.product_name,
+                    product_name:response.data.name,
                     category:response.data.category._id,
                     quantity: response.data.quantity,
                     manufacturer_price: response.data.manufacturer_price,
@@ -52,7 +52,7 @@ class editProductsComponent extends Component {
 
                     <div className="form-group">
                         <label>Description: </label>
-                        <input type="text" className="form-control" onChange={this.onChangeDescription}
+                        <textarea className="form-control" onChange={this.onChangeDescription}
                                value={this.state.description}/>
                     </div>
 

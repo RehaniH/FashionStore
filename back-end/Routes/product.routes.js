@@ -27,26 +27,17 @@ const upload = multer({storage:storage, limits:{
 //get all product details
 router.get('/all', product_controller.getAllProducts);
 
-//create new product removed cause it doesnt involve saving images
-//router.post('/create', product_controller.create_product);
-
-//create new category
-router.post('/category/create', product_controller.category_create);
-
-//create new category
-router.get('/category/all', product_controller.getAllCategories);
-
 //get product by id
 router.get('/:id', product_controller.getProductsById);
 
-//get product by id
+//get product by ref_no
 router.get('/ref-no/:ref_no', product_controller.product_details);
 
 //get products by category id
 router.get('/category/:id', product_controller.getProductsByCategoryId);
 
 //update a product
-router.put('/update/:id', product_controller.update_product);
+router.put('/:id', upload.single('product_img'), product_controller.update_product);
 
 //uploading products with images
 router.post('/upload', upload.single('product_img'), product_controller.create_new_product);

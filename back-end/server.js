@@ -11,11 +11,14 @@ const passport = require("passport");
 //products routes
 const product = require('./Routes/product.routes');
 const discount = require('./Routes/discount.routes');
-
+const category = require('./Routes/category.routes');
 //user routes
 const users = require("./Routes/user.routes");
 
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
+
+//added to set update possible
+mongoose.set('useFindAndModify', false);
 
 mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true});
 //mongoose.Promise = global.Promise;
@@ -35,6 +38,7 @@ app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purp
 //Routing configured for products router
 app.use('/products', product);
 app.use('/discount', discount);
+app.use('/category', category);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));
 // Passport middleware

@@ -9,7 +9,7 @@ const Product = props =>(
        <td>{props.product.description}</td>
        <td>{props.product.retail_price}</td>
        <td>{props.product.total_quantity}</td>
-       <td>{props.product.category.name}</td>
+       <td>{props.product.category !== undefined ? props.product.category.name: ''}</td>
        <td><img src={props.product.product_image} height='40' width='30' alt={props.product.name}/></td>
        <td>
            <Link to={"/storage/edit/" + props.product._id}>Edit</Link>
@@ -32,7 +32,7 @@ class AllProducts extends Component{
                 this.setState({
                     products: response.data});
             }).catch(function (err) {
-                console.log('error');
+                console.log('error : ' + err.getMessage);
         })
 
     }
@@ -45,6 +45,9 @@ class AllProducts extends Component{
     render() {
         return (
             <div>
+                <div>
+                    <Link to='/storage/products'><button className='btn btn-circle btn-danger'>Add New Product</button></Link>
+                </div>
                 <table className="table table-dark">
                     <thead>
                         <th>Product Id</th>

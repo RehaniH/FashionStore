@@ -1,112 +1,12 @@
 const express = require('express');
 const Product = require('../Models/product.model');
-const Category = require('../Models/category.model');
-const Discount = require('../Models/discount.model');
-
-exports.category_create = function (req, res) {
-    let category = new Category(req.body);
-    category.save()
-        .then(category => { res.status(200).json(category)})
-        .catch(err => {
-            res.status(400).send('adding new category failed');
-        });
-};
-
-
-exports.getAllCategories = function(req, res) {
-
-    Category.find()
-        .exec(function (err, category) {
-            if(err){
-                res.status(404).json({'error_msg': 'not found'})
-            }else{
-                res.json(category)
-            }
-        });
-};
-
-exports.create_product = function (req, res) {
-    let product = new Product(req.body);
-    product.save()
-        .then(product => {
-            res.status(200).json(product);
-        })
-        .catch(err=>{
-            res.status(400).send('adding new product failed');
-        });
-
-
-};
-
-exports.update_product = function (req, res) {
-
-    Product.findById(req.params.id, function (err, product) {
-        if(!product)
-            res.status(404).send('data is not found');
-        else
-            product.name = req.body.name;
-            product.description = req.body.description;
-            product.manufacturer_price = req.body.manufacturer_price;
-            product.retail_price = req.body.retail_price;
-            product.quantity = req.body.quantity;
-            product.category = req.body.category;
-           // product.product_image = url + '/items/' + req.file.filename;
-            product.save()
-                .then(product =>{
-                res.json(product);
-                })
-                .catch(err =>{
-                    res.status(400).send("update not possible");
-                })
-
-
-    });
-
-};
-
-exports.getAllProducts = function(req, res) {
-
-    Product.find()
-        .populate('category discount')
-        .exec(function (err, products) {
-        if(err){
-            res.status(404).json({'error_msg': 'not found'})
-        }else{
-            res.json(products)
-        }
-    });
-};
-
-exports.getProductsByCategoryId = function(req, res) {
-
-    Product.find({'category':req.params.id}).exec(function (err, products) {
-        if(err){
-            res.status(404).json({'error_msg': 'not found'})
-        }else{
-            res.json(products)
-        }
-    });
-};
-
-exports.getProductsById = function(req, res) {
-
-    let id = req.params.id;
-    Product.findById(id)
-        .populate('category')
-        .exec(function (err, product) {
-            if(err){
-                console.log(err)
-            }else{
-                res.json(product)
-            }
-        });
-};
 
 exports.create_new_product = function (req, res) {
 
+    console.log(req.file);
     const url = req.protocol + '://' + req.get('host');
     let product = new Product({
-        ref_no: req.body.ref_no,
+        ref_no: req.body.product_id,
         name:req.body.product_name,
         description: req.body.description,
         total_quantity: req.body.total_quantity,
@@ -126,9 +26,32 @@ exports.create_new_product = function (req, res) {
         });
 };
 
-exports.product_details = function (req, res) {
+exports.update_product = function (req, res) {
 
-    let discount;
+    const url = req.protocol + '://' + req.get('host');
+    let query = {_id: req.params.id};
+
+    Product.findOneAndUpdate(query,
+        {name :req.body.name,
+            description :req.body.description,
+            manufacturer_price : req.body.manufacturer_price,
+            retail_price: req.body.retail_price,
+            total_quantity: req.body.total_quantity,
+            category : req.body.category,
+            product_image :url + '/items/' + req.file.filename,},
+        {new: true}, function (err, product) {
+
+            if(err){
+                res.status(400).send("updating product failed");
+            }else
+                res.json(product);
+
+
+    });
+
+};
+
+exports.product_details = function (req, res) {
 
     Product
         .findOne({'ref_no':req.params.ref_no})
@@ -138,7 +61,46 @@ exports.product_details = function (req, res) {
             if(err)
                 res.status(400).json({'error':'getting product details failed'});
             else
-                    res.status(200).json(product);
-                });
+                res.status(200).json(product);
+        });
 
 };
+
+exports.getAllProducts = function(req, res) {
+
+    Product.find()
+        .populate('category discount')
+        .exec(function (err, products) {
+            if(err){
+                res.status(404).json({'error_msg': 'not found'})
+            }else{
+                res.json(products)
+            }
+        });
+};
+
+exports.getProductsByCategoryId = function(req, res) {
+
+    Product.find({'category':req.params.id}).exec(function (err, products) {
+        if(err){
+            res.status(404).json({'error_msg': 'not found'})
+        }else{
+            res.json(products)
+        }
+    });
+};
+
+exports.getProductsById = function(req, res) {
+
+    let id = req.params.id;
+    Product.findById(id)
+        .populate('category discount')
+        .exec(function (err, product) {
+            if(err){
+                console.log(err)
+            }else{
+                res.json(product)
+            }
+        });
+};
+

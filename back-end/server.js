@@ -18,6 +18,9 @@ const discount = require('./Routes/discount.routes');
 //user routes
 const users = require("./Routes/user.routes");
 
+//category routes
+const category = require("./Routes/category.routes");
+
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
 
 mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -45,6 +48,9 @@ app.use('/wishlists',wishlists);
 app.use('/discount', discount);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));
+//Routing configured for category router
+app.use('/category', category);
+
 // Passport middleware
 app.use(passport.initialize());
 // Passport config

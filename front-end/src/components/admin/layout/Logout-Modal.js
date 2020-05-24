@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import { withRouter  } from "react-router-dom";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
-import {logoutUser} from "../../actions/authActions";
+import {logoutUser} from "../../../actions/authActions";
 
 class Logout extends Component {
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
+        this.props.history.push("/login");
     };
 
     render() {
@@ -44,4 +46,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { logoutUser }
-)(Logout);
+)(withRouter(Logout));

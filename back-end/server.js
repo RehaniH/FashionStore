@@ -18,6 +18,9 @@ const category = require('./Routes/category.routes');
 //user routes
 const users = require("./Routes/user.routes");
 
+//category routes
+const category = require("./Routes/category.routes");
+
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
 
 //added to set update possible
@@ -49,6 +52,9 @@ app.use('/discount', discount);
 app.use('/category', category);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));
+//Routing configured for category router
+app.use('/category', category);
+
 // Passport middleware
 app.use(passport.initialize());
 // Passport config

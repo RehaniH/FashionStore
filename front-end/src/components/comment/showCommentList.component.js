@@ -66,7 +66,6 @@ class ShowCommentList extends Component {
       );
     }
 
-    if(this.props.auth.user.role === 'user') {
     return (
 
 
@@ -136,9 +135,7 @@ class ShowCommentList extends Component {
 
  
     );
-    } else {
-      return <Redirect to='/login' />
-    }
+
   }
 }
 

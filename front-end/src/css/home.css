@@ -1,0 +1,69 @@
+.cut {
+    font-size: 12px;
+    text-decoration: line-through;
+    text-decoration-color: green;
+}
+
+
+.details, .details:hover{
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.0;
+    text-decoration: none;
+}
+
+.center{
+    color: darkslateblue;
+    line-height: 1.2;
+    text-align: center
+}
+
+.ref {
+    font-size: 12px;
+    color: cadetblue;
+}
+
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img{
+    height: 70%;
+    width: 100%;
+}
+
+
+.div-border{
+    border-radius: 10px;
+    border: 1px solid darkslateblue;
+    margin: 10px;
+    padding: 4px;
+}
+
+.img-wrapper {
+    position: relative;
+   }
+  
+  .img-responsive {
+    width: 100%;
+    height: auto;
+  }
+  
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 1;
+    left: 1;
+    right: 0;
+    text-align: center;
+  }
+  
+  .img-overlay:before {
+    content: ' ';
+    display: block;
+    
+    height: 50%;
+  }
+
+

@@ -20,7 +20,13 @@ class Register extends Component {
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            if(this.props.auth.user.role === 'admin'){
+                this.props.history.push("/adminDashboard");
+            } else if(this.props.auth.user.role === 'manager') {
+                this.props.history.push("/dashboard");
+            } else if(this.props.auth.user.role === 'user') {
+                this.props.history.push("/dashboard");
+            }
         }
     }
 
@@ -46,7 +52,6 @@ class Register extends Component {
         };
 
         this.props.registerUser(newUser, this.props.history);
-        console.log(newUser);
     };
 
     render() {

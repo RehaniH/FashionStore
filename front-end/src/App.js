@@ -25,7 +25,7 @@ import AddDiscountComponent from "./components/add-discount.component";
 import AllProducts from "./components/retrieve-products.component";
 import AddProducts from "./components/manage-products.component";
 
-
+//admin components
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import AddStoreManager from "./components/admin/store-manager/AddStoreManager";
 import AddCategory from "./components/admin/category/AddCategory";
@@ -86,7 +86,7 @@ class App extends Component {
                     {/*all store manager components here*/}
 
                     {/*all admin components here*/}
-                     <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                     <PrivateRoute exact path="/adminDashboard" component={Dashboard} />
                      <PrivateRoute exact path="/addStoreManager" component={AddStoreManager}/>
                      <PrivateRoute exact path="/addUser" component={AddUser}/>
                      <PrivateRoute exact path="/usersList" component={UsersList}/>

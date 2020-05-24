@@ -82,11 +82,12 @@ class Login extends Component {
                 <div className="row p-t-100 p-b-30">
                     <div className="col-lg-4 m-auto">
                         <div className="card">
-                        <div className="" style={{ paddingLeft: "11.250px" }}>
+                            <div className="card-body">
+                        <div className="">
                             <h4>
                                 <b>Login</b> below
                             </h4>
-                            <p className="grey-text text-darken-1">
+                            <p className="">
                                 Don't have an account? <Link to="/register">Register</Link>
                             </p>
                         </div>
@@ -140,6 +141,7 @@ class Login extends Component {
                                 </button>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
                 </div>

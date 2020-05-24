@@ -75,6 +75,7 @@ class Register extends Component {
                 <div className="row p-t-100 p-b-30">
                     <div className="col-lg-4 m-auto">
                         <div className="card">
+                            <div className="card-body">
                         <div className="" style={{ paddingLeft: "11.250px" }}>
                             <h4>
                                 <b>Register</b> below
@@ -160,6 +161,7 @@ class Register extends Component {
                             </div>
                         </form>
                     </div>
+                </div>
                     </div>
                 </div>
             </div>

@@ -25,12 +25,14 @@ class Payment extends Component {
         this.onChangeCard=this.onChangeCard.bind(this);
     }
 
-    /* componentDidMount () {
+     componentDidMount () {
         const script = document.createElement("script");
-        script.src = "./assets/js/script.js";
+        script.src = './assets/js/jquery.payform.min';
         script.async = true;
+        // script.onload = () => this.scriptLoaded();
         document.body.appendChild(script);
-    }*/
+    }
+
 
     onChangeOwner(e) {
         this.setState({ owner: e.target.value })
@@ -45,11 +47,11 @@ class Payment extends Component {
         object.subtotal=this.props.match.params.id;
 
         console.log(object);
-        axios.post('http://localhost:4000/payment', object)
+       /* axios.post('http://localhost:4000/payment', object)
             .then(res => console.log((res.data)))
             .catch(error => {
                 console.log(error)
-            })
+            })*/
     }
     render(){
         return(

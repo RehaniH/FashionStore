@@ -6,7 +6,8 @@ var atc=new Schema({
     title:{type:String,required:true},
     username:{type:String,required:true},
     quantity:{type:String,required:false},
-    price:{type:Number,required:false}
+    price:{type:Number,required:false},
+    status:{type:Boolean,required:false}
 },{
     collection: 'addtocart'
 });

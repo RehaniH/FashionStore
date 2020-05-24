@@ -8,10 +8,11 @@ import LoginComponent from "./components/login.component";
 //import ShowCommentDetails from "./components/showCommentDetails.component.js";
 //import ShowCommentList from "./components/showCommentList.component.js";
 //import UpdateComment from "./components/updateComment.component.js";
-import productlist from "./components/Productlist"
+//import productlist from "./components/Productlist"
 import cart from "./components/CartView"
 import Payment from "./components/Payment"
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import { BrowserRouter as Router, Route, Switch  } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -36,6 +37,14 @@ import UpdateComment from "./components/comment/updateComment.component.js";
 
 import AddWishlist from "./components/wishlist/addWishlist.component.js";
 import ShowWishlist from "./components/wishlist/showWishlist.component.js";
+import HomeComponent from './components/home.component'
+import ViewProductComponent from "./components/view-product.component";
+import AddDiscountComponent from "./components/add-discount.component";
+import AllProducts from "./components/retrieve-products.component";
+import AddProducts from "./components/manage-products.component";
+import PaymentForm from "./components/PaymentForm";
+
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -61,11 +70,11 @@ if (localStorage.jwtToken) {
 
 class App extends Component{
 
-    render() {
+    render(){
         return (
             <Router>
 
-                <productlist/>
+
 
 
                 <div className="App">
@@ -82,18 +91,23 @@ class App extends Component{
 
                     <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
                     <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
-                    <Route path='/Productlist' exact component={productlist} />
+
                     <Route path='/CartView' exact component={cart} />
-                    <Route path="/pay/:id" component={Payment}/>
+                    <Route path="/pay/:id" component={PaymentForm}/>
 
 
 
+
+                    <Route path="/home/:id" component={ViewProductComponent}/>
+                    <Route path="/storage/products" component={AddProducts}/>
+                    <Route path="/storage/all" component={AllProducts}/>
+                    <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
                     <Switch>
                         {
                             this.props.auth.user.role === 'user' ?
                                 <>
                                     {/*all user components here*/}
-                                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
                                 </>
                                 :
                                 this.props.auth.user.role === 'manager' ?

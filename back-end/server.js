@@ -5,7 +5,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const pRouter = express.Router();
 const PORT = 4000;
+const path = require('path');
 const passport = require("passport");
+
+
 
 //products routes
 const product = require('./Routes/product.routes');
@@ -13,6 +16,8 @@ const ratings=require('./Routes/rating.route');
 const wishlists=require('./Routes/wishlist.route');
 const ps=require('./Routes/product-seeder');
 const pay=require('./Routes/payment-seeder');
+
+const discount = require('./Routes/discount.routes');
 
 //user routes
 const users = require("./Routes/user.routes");
@@ -35,7 +40,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('Hello world!'));
-app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
+//app.use(bodyParser.urlencoded({extended: false}));//remove only for testing purpose
 
 //Routing configured
 app.use('/products', product);
@@ -43,7 +48,9 @@ app.use('/ratings',ratings);
 app.use('/wishlists',wishlists);
 app.use('/',ps);
 app.use('/pymt',pay);
+app.use('/discount', discount);
 
+app.use('/items', express.static(path.join(__dirname ,'items')));
 // Passport middleware
 app.use(passport.initialize());
 // Passport config

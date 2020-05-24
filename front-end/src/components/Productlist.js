@@ -10,14 +10,18 @@ import CartView from "./CartView";
 
  class Productlist extends Component {
 
+
      constructor(props) {
          super(props);
          this.state = {
              pro: [],
              qnty:"",
+
          }
          this.indexNumber = this.indexNumber.bind(this);
          this.onChangeQty=this.onChangeQty.bind(this);
+
+
      }
 
      componentDidMount() {
@@ -36,11 +40,12 @@ import CartView from "./CartView";
      }
 
    indexNumber = (i)=> {
+       const { user } = this.props.auth;
        console.log(i)
        var obj = {}
        obj.id = this.state.pro[i]._id;
        obj.title=this.state.pro[i].title;
-       obj.username = 'andrew'
+       obj.username = user.name;
        obj.quantity = this.state.qnty;
        obj.price = this.state.pro[i].price;
 

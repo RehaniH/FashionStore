@@ -56,7 +56,7 @@ router.route('/addcart').post((req,res,next)=>{
 });
 
 router.route('/username/:uname').get((req,res)=>{
-    var items={username:req.params.uname}
+    var items={username:req.params.uname, status :false}
     atc.find(items,(error,data)=>{
         if(error){
             return next(error)
@@ -65,6 +65,16 @@ router.route('/username/:uname').get((req,res)=>{
             res.json(data)
         }
     })
+})
+
+router.route('/updatestate').put((req,res)=> {
+    for(var i=0;i<req.body.length;i++){
+        atc.findByIdAndUpdate(req.body[i]._id,{
+            $set : {
+                status:true
+            }
+        }).then(()=> res.sendStatus(200)).catch((err)=>console.error(err))
+    }
 })
 
 

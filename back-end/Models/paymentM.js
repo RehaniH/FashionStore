@@ -3,9 +3,14 @@ var Schema=mongoose.Schema;
 
 var pymt=new Schema({
 
-    owner:{type:String,required:true},
-    card:{type:String,required:true},
-    subtotal:{type:Number,required:true}
+    address:{type:String,required:true},
+    region:{type:String,required:true},
+    tel:{type:Number,required:true},
+    name:{type:String,required:true},
+    number:{type:String,required:true},
+    cvc:{type:Number,required:true},
+    expiry:{type:String,required:true},
+    price:{type:Number,required:true}
 });
 
 module.exports=mongoose.model('paymentM',pymt);

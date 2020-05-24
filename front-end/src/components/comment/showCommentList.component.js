@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CommentSingle from "./commentSingle.component.js";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
-
+import { Redirect } from 'react-router-dom';
 import Rating from 'react-rating';
 
 
@@ -66,6 +66,7 @@ class ShowCommentList extends Component {
       );
     }
 
+    if(this.props.auth.user.role === 'user') {
     return (
 
 
@@ -135,6 +136,9 @@ class ShowCommentList extends Component {
 
  
     );
+    } else {
+      return <Redirect to='/login' />
+    }
   }
 }
 

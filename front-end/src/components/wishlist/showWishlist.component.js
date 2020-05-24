@@ -5,6 +5,8 @@ import WishlistSingle from './wishlistSingle.component';
 import '../../css/wishlist.css';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
+import { Redirect } from 'react-router-dom';
+
 
 
 

@@ -25,6 +25,7 @@ let RatingSchema = new mongoose.Schema({
     product_id:{
         type: String
     }
+   
 
 });
 

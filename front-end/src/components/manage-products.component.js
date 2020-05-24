@@ -227,7 +227,7 @@ class AddProducts extends Component{
     }
     render() {
         return (
-            <div>
+            <div className='container-fluid'>
                 <div style={{marginTop: 20}}>
                     <h3>Add New Product</h3>
                     <form onSubmit={this.onSubmit}>

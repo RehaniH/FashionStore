@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+
+import Logout from "../admin/layout/Logout-Modal";
 import HeaderD from "./layout/Header Desktop";
 import HeaderM from "./layout/Header Mobile";
 import Slider from "./layout/Slider";
 import Footer from "./layout/Footer";
 
 class Homepage extends Component {
-
     render(){
         return(
             <div>
@@ -31,6 +32,7 @@ class Homepage extends Component {
                 {/*</section>*/}
                 {/* Footer */}
                 <Footer/>
+                < Logout/>
                 {/* Back to top */}
             </div>
 

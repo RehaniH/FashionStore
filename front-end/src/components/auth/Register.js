@@ -3,11 +3,11 @@ import { Link, withRouter  } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+
 import classnames from "classnames";
 import Footer from "../public/layout/Footer";
 import HeaderD from "../public/layout/Header Desktop";
 import HeaderM from "../public/layout/Header Mobile";
-import Slider from "../public/layout/Slider";
 
 class Register extends Component {
     constructor() {
@@ -27,9 +27,9 @@ class Register extends Component {
             if(this.props.auth.user.role === 'admin'){
                 this.props.history.push("/adminDashboard");
             } else if(this.props.auth.user.role === 'manager') {
-                this.props.history.push("/dashboard");
+                this.props.history.push("/storage/all");
             } else if(this.props.auth.user.role === 'user') {
-                this.props.history.push("/dashboard");
+                this.props.history.push("/");
             }
         }
     }
@@ -97,7 +97,7 @@ class Register extends Component {
                                         invalid: errors.name
                                     })}
                                 />
-                                <span className="red-text">{errors.name}</span>
+                                <span className="text-danger">{errors.name}</span>
                             </div>
                             <div className="input-field">
                                 <label htmlFor="email">Email</label>
@@ -112,7 +112,7 @@ class Register extends Component {
                                         invalid: errors.email
                                     })}
                                 />
-                                <span className="red-text">{errors.email}</span>
+                                <span className="text-danger">{errors.email}</span>
                             </div>
                             <div className="input-field">
                                 <label htmlFor="password">Password</label>
@@ -127,7 +127,7 @@ class Register extends Component {
                                         invalid: errors.password
                                     })}
                                 />
-                                <span className="red-text">{errors.password}</span>
+                                <span className="text-danger">{errors.password}</span>
                             </div>
                             <div className="input-field">
                                 <label htmlFor="password2">Confirm Password</label>
@@ -142,7 +142,7 @@ class Register extends Component {
                                         invalid: errors.password2
                                     })}
                                 />
-                                <span className="red-text">{errors.password2}</span>
+                                <span className="text-danger">{errors.password2}</span>
                             </div>
                             <div className="">
                                 <button

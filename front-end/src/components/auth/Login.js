@@ -38,10 +38,10 @@ class Login extends Component {
                 var {from} = this.props.location.state || {from: {pathname: '/adminDashboard'}}
             }
             if(this.props.auth.user.role === 'manager') {
-                var {from} = this.props.location.state || {from: {pathname: '/dashboard'}}
+                var {from} = this.props.location.state || {from: {pathname: '/storage/all'}}
             }
             if(this.props.auth.user.role === 'user') {
-                var {from} = this.props.location.state || {from: {pathname: '/dashboard'}}
+                var {from} = this.props.location.state || {from: {pathname: '/'}}
             }
             this.props.history.push(from); //redirect user to the page they are trying to access or the dashboard
         }
@@ -103,7 +103,7 @@ class Login extends Component {
                                         invalid: errors.email || errors.emailnotfound
                                     })}
                                 />
-                                <span className="red-text">
+                                <span className="text-danger">
                                      {errors.email}
                                      {errors.emailnotfound}
                                  </span>
@@ -120,7 +120,7 @@ class Login extends Component {
                                         invalid: errors.password || errors.passwordincorrect
                                     })}
                                 />
-                                <span className="red-text">
+                                <span className="text-danger">
                                     {errors.password}
                                     {errors.passwordincorrect}
                                 </span>

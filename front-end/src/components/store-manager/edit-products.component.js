@@ -5,11 +5,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import {makeStyles} from "@material-ui/core/styles";
 import StoreMangerSideBar from "./layout/store-manger-side-bar";
 import Navbar from "../admin/layout/Navbar";
 import Footer from "../admin/layout/Footer";
 import Logout from "../admin/layout/Logout-Modal";
+
 class editProductsComponent extends Component {
 
     constructor(props) {
@@ -78,8 +81,20 @@ class editProductsComponent extends Component {
             }).catch(err => console.log('error'))
     }
 
+    onDeleteClick = () =>
+    {
+        axios
+            .delete('localhost:4000/products/delete/'+ this.state.p_id)
+            .then(res => {
+                alert('product deleted successfully');
+                this.props.history.push("/storage/all");
+            })
+            .catch(err => {
+                console.log("Error deleting "+err);
+            })
+    };
     previousPage = () =>{
-        this.props.history.push('/dashboard');
+        this.props.history.push('/storage/all');
     };
     enableEditing(e){
         this.setState({
@@ -411,6 +426,9 @@ class editProductsComponent extends Component {
                                                     this.state.is_disabled !== false ? <button className='btn btn-info ml-3' onClick={this.enableEditing}>{this.state.btn_update}</button>: ''
                                                 }
                                                 <button className='btn btn-success ml-3' onClick={this.previousPage}>Cancel</button>
+                                                <IconButton aria-label="delete" onClick={this.onDeleteClick} className={classes.margin}>
+                                                    <DeleteIcon fontSize="large" />
+                                                </IconButton>
                                             </div>
                                         </div>
                                     </div>

@@ -61,7 +61,7 @@ class AddProducts extends Component{
     }
 
     previousPage = () =>{
-        this.props.history.push('/dashboard');
+        this.props.history.push('/storage/all');
     };
 
     onChangeRefNo(e){
@@ -196,15 +196,6 @@ class AddProducts extends Component{
         e.preventDefault();
 
         if(this.validateForm()){
-
-            console.log(`Form submitted`);
-            console.log(`Name : ${this.state.product_name}`);
-            console.log(`ref_no : ${this.state.ref_no}`);
-            console.log(`Description : ${this.state.description}`);
-            console.log(`category: ${this.state.category}`);
-            console.log(`retail_price: ${this.state.retail_price}`);
-            console.log(`manufacturer_price: ${this.state.manufacturer_price}`);
-            console.log(`quantity: ${this.state.quantity}`);
 
             const formData = new FormData();
             formData.set('product_id', this.state.product_id);

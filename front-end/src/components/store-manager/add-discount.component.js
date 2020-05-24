@@ -70,7 +70,7 @@ class AddDiscountComponent extends Component{
     }
 
     previousPage = () =>{
-        this.props.history.push('/dashboard');
+        this.props.history.push('/storage/all');
     };
 
     onChangeDiscountPercentage(e) {

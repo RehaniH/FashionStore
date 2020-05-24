@@ -81,7 +81,7 @@ class App extends Component {
             <Router>
 
                 <div className="App">
-                    <Route exact path="/" component={Landing} />
+                    <Route exact path="/" component={AllProducts} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route path="/add-category" component={AddCategory}/>

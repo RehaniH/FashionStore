@@ -113,3 +113,16 @@ exports.getProductsById = function(req, res) {
         });
 };
 
+exports.deleteProductById = function (req, res) {
+
+    let query = { _id: req.params.id};
+    Product.deleteOne(query, function (err) {
+
+        if(err)
+            res.status(400).send('deleting product failed');
+        else
+            res.status(200).send('product deleted');
+
+    })
+};
+

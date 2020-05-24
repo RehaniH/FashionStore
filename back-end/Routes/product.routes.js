@@ -42,4 +42,7 @@ router.put('/:id', upload.single('product_img'), product_controller.update_produ
 //uploading products with images
 router.post('/upload', upload.single('product_img'), product_controller.create_new_product);
 
+//deletes a product by id
+router.delete('/delete/:id', product_controller.deleteProductById);
+
 module.exports = router;

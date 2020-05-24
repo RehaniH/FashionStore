@@ -14,7 +14,7 @@ const ratings=require('./Routes/rating.route');
 const wishlists=require('./Routes/wishlist.route');
 
 const discount = require('./Routes/discount.routes');
-const category = require('./Routes/category.routes');
+
 //user routes
 const users = require("./Routes/user.routes");
 

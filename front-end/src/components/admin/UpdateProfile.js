@@ -91,7 +91,7 @@ class UpdateProfile extends Component {
                                                         <h6 className="m-0 font-weight-bold text-primary">Edit Profile</h6>
                                                     </div>
                                                     <div className="card-body">
-                                                        <div className="UpdateBookInfo">
+                                                        <div>
                                                             <div className="container">
                                                                 <form noValidate onSubmit={this.onSubmit}>
                                                                     <div className='form-group'>

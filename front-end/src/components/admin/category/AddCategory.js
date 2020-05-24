@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -65,76 +65,75 @@ class AddCategory extends Component{
     render() {
         if(this.props.auth.user.role === 'admin') {
         return (
-            <div>
-                <div id="wrapper">
-                    <Sidebar/>
-                    <div id="content-wrapper" className="d-flex flex-column">
-                        <div id="content">
-                            <Navbar/>
-                            <div className="container-fluid">
-                                <div className="col-lg-6 m-auto">
-                                <Link to="/categoryList" className="btn mb-3 btn-success">
-                                    Show Categories
-                                </Link>
-                                </div>
-                                <div>
+                            <div>
+                                <div id="wrapper">
+                                    <Sidebar/>
+                                    <div id="content-wrapper" className="d-flex flex-column">
+                                        <div id="content">
+                                            <Navbar/>
+                                            <div className="container-fluid">
+                                                <div className="col-lg-6 m-auto">
+                                                <Link to="/categoryList" className="btn mb-3 btn-success">
+                                                    Show Categories
+                                                </Link>
+                                                </div>
+                                                <div>
 
-                                    <div className="row">
-                                        <div className="col-lg-6 m-auto">
-                                    <div className="card shadow mb-4">
-                                        <div className="card-header py-3">
-                                            <h6 className="m-0 font-weight-bold text-primary">Add Category</h6>
-                                        </div>
-                                        <div className="card-body">
-                                <div className="CreateBook">
-                                    <div className="container">
-                                                <form noValidate onSubmit={this.onSubmit}>
-                                                    <div className='form-group'>
-                                                        <label>Name</label>
-                                                        <input
-                                                            type='text'
-                                                            name='name'
-                                                            className='form-control'
-                                                            value={this.state.name}
-                                                            onChange={this.onChange}
-                                                        />
-                                                        <span style={{color: "red"}}>{this.state.errors["name"]}</span>
+                                                    <div className="row">
+                                                        <div className="col-lg-6 m-auto">
+                                                    <div className="card shadow mb-4">
+                                                        <div className="card-header py-3">
+                                                            <h6 className="m-0 font-weight-bold text-primary">Add Category</h6>
+                                                        </div>
+                                                        <div className="card-body">
+                                                <div>
+                                                    <div className="container">
+                                                                <form noValidate onSubmit={this.onSubmit}>
+                                                                    <div className='form-group'>
+                                                                        <label>Name</label>
+                                                                        <input
+                                                                            type='text'
+                                                                            name='name'
+                                                                            className='form-control'
+                                                                            value={this.state.name}
+                                                                            onChange={this.onChange}
+                                                                        />
+                                                                        <span style={{color: "red"}}>{this.state.errors["name"]}</span>
+                                                                    </div>
+                                                                    <div className='form-group'>
+                                                                        <label>Description</label>
+                                                                        <input
+                                                                            type='text'
+                                                                            name='description'
+                                                                            className='form-control'
+                                                                            value={this.state.description}
+                                                                            onChange={this.onChange}
+                                                                        />
+                                                                    </div>
+                                                                    <button
+                                                                    type="submit"
+                                                                    className="btn btn-success btn-block mt-4"
+                                                                >Submit</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    <div className='form-group'>
-                                                        <label>Description</label>
-                                                        <input
-                                                            type='text'
-                                                            name='description'
-                                                            className='form-control'
-                                                            value={this.state.description}
-                                                            onChange={this.onChange}
-                                                        />
-                                                    </div>
-
-                                                    <button
-                                                        type="submit"
-                                                        className="btn btn-success btn-block mt-4"
-                                                    >Submit</button>
-                                                </form>
+                                                </div>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                             </div>
+                         <Footer/>
                         </div>
-                        <Footer/>
                     </div>
+                    <a className="scroll-to-top rounded" href="#page-top">
+                        <i className="fas fa-angle-up" />
+                    </a>
+                    <Logout/>
                 </div>
-                <a className="scroll-to-top rounded" href="#page-top">
-                    <i className="fas fa-angle-up" />
-                </a>
-                <Logout/>
-            </div>
 
-        );
+            );
         } else {
             return <Redirect to='/login' />
         }

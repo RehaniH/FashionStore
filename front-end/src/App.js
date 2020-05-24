@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -14,9 +11,6 @@ import Landing from "./components/admin/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
-import Some from "./components/something"
-import AddCategory from "./components/add-category.component";
 import AddComment from "./components/comment/addComment.component.js";
 import ShowCommentDetails from "./components/comment/showCommentDetails.component.js";
 import ShowCommentList from "./components/comment/showCommentList.component.js";
@@ -80,36 +74,14 @@ class App extends Component {
                     <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
                     <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
 
-
-
-
                     <Route path="/home/:id" component={ViewProductComponent}/>
                     <Route path="/storage/products" component={AddProducts}/>
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
 
                     <Switch>
-                        {
-                            this.props.auth.user.role === 'user' ?
-                                <>
-                                    {/*all user components here*/}
-                                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
-                                </>
-                                :
-                                this.props.auth.user.role === 'manager' ?
-                                    <>
-                                        {/*all store manager components here*/}
-                                        <PrivateRoute exact path="/something" component={Some} />
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                                    </>
-                                    :
-                                    <>
-                                        {/*all admin components here*/}
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                                        <PrivateRoute exact path="/something" component={Some} />
-                                    </>
-                        }
                     {/*all user components here*/}
+                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
 
                     {/*all store manager components here*/}
 

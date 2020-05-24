@@ -3,6 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from 'axios';
+import { FaArrowCircleUp } from 'react-icons/fa';
+
 
 import Sidebar from "../layout/Sidebar";
 import Navbar from "../layout/Navbar";
@@ -83,8 +85,14 @@ class CategoryList extends Component {
                                                         <td>{user.name}</td>
                                                         <td>{user.description}</td>
                                                         <td>
+                                                            <div className="row">
+                                                                <div className="col-auto">
                                                             <Link to={"updateCategory/" + user._id} className="btn btn-info">Edit</Link>
-                                                            <button className="btn btn-danger ml-3" onClick={this.onDeleteClick.bind(this,user._id)} >Delete</button>
+                                                                </div>
+                                                                <div className="col-auto">
+                                                            <button className="btn btn-danger" onClick={this.onDeleteClick.bind(this,user._id)} >Delete</button>
+                                                            </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 )
@@ -101,7 +109,7 @@ class CategoryList extends Component {
                     </div>
                 </div>
                 <a className="scroll-to-top rounded" href="#page-top">
-                    <i className="fas fa-angle-up" />
+                    <FaArrowCircleUp />
                 </a>
                 <Logout/>
             </div>

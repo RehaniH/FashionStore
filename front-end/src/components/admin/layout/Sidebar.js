@@ -7,14 +7,14 @@ class Sidebar extends Component {
     render() {
         return (
                 <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                    <NavLink className="sidebar-brand d-flex align-items-center justify-content-center" to="/dashboard">
+                    <NavLink className="sidebar-brand d-flex align-items-center justify-content-center" to="/adminDashboard">
                         <div className="sidebar-brand-text mx-3">Admin Area</div>
                     </NavLink>
 
                     <hr className="sidebar-divider my-0" />
 
                     <li className="nav-item">
-                        <NavLink to="/dashboard" className="nav-link">Dashboard</NavLink>
+                        <NavLink to="/adminDashboard" className="nav-link">Dashboard</NavLink>
                     </li>
 
                     <hr className="sidebar-divider" />

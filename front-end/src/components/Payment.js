@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './assets/css/demo.css'
-import './assets/css/styles.css'
+// import './assets/css/styles.css'
 import axios from "axios";
 //import './assets/js/jquery.payform.min'
 //import './assets/js/script'

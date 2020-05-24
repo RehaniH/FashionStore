@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
+import Footer from "../public/layout/Footer";
+import HeaderD from "../public/layout/Header Desktop";
+import HeaderM from "../public/layout/Header Mobile";
+import Slider from "../public/layout/Slider";
 
 class Register extends Component {
     constructor() {
@@ -57,14 +61,21 @@ class Register extends Component {
     render() {
         const { errors } = this.state;
         return (
+            <div>
+                {/* Header */}
+                <header>
+                    {/* Header desktop */}
+                    <HeaderD/>
+                    {/* Header Mobile */}
+                    <HeaderM/>
+                    {/* Menu Mobile */}
+                </header>
+                {/* Slider */}
             <div className="container">
-                <div className="row">
-                    <div className="col s8 offset-s2">
-                        <Link to="/" className="btn-flat waves-effect">
-                            <i className="material-icons left">keyboard_backspace</i> Back to
-                            home
-                        </Link>
-                        <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                <div className="row p-t-100 p-b-30">
+                    <div className="col-lg-4 m-auto">
+                        <div className="card">
+                        <div className="" style={{ paddingLeft: "11.250px" }}>
                             <h4>
                                 <b>Register</b> below
                             </h4>
@@ -73,63 +84,67 @@ class Register extends Component {
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
-                            <div className="input-field col s12">
+                            <div className="input-field">
+                                <label htmlFor="name">Name</label>
+
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.name}
                                     error={errors.name}
                                     id="name"
                                     type="text"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.name
                                     })}
                                 />
-                                <label htmlFor="name">Name</label>
                                 <span className="red-text">{errors.name}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="input-field">
+                                <label htmlFor="email">Email</label>
+
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.email}
                                     error={errors.email}
                                     id="email"
                                     type="email"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.email
                                     })}
                                 />
-                                <label htmlFor="email">Email</label>
                                 <span className="red-text">{errors.email}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="input-field">
+                                <label htmlFor="password">Password</label>
+
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password}
                                     error={errors.password}
                                     id="password"
                                     type="password"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.password
                                     })}
                                 />
-                                <label htmlFor="password">Password</label>
                                 <span className="red-text">{errors.password}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="input-field">
+                                <label htmlFor="password2">Confirm Password</label>
+
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password2}
                                     error={errors.password2}
                                     id="password2"
                                     type="password"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.password2
                                     })}
                                 />
-                                <label htmlFor="password2">Confirm Password</label>
                                 <span className="red-text">{errors.password2}</span>
                             </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                            <div className="">
                                 <button
                                     style={{
                                         width: "150px",
@@ -138,15 +153,19 @@ class Register extends Component {
                                         marginTop: "1rem"
                                     }}
                                     type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                    className="btn btn-primary mb-4"
                                 >
                                     Sign up
                                 </button>
                             </div>
                         </form>
                     </div>
+                    </div>
                 </div>
             </div>
+            <Footer/>
+            {/* Back to top */}
+    </div>
         );
     }
 }

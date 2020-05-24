@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import HeaderD from "../public/layout/Header Desktop";
+import HeaderM from "../public/layout/Header Mobile";
+import Slider from "../public/layout/Slider";
+import Footer from "../public/layout/Footer";
 
 class Login extends Component {
     constructor() {
@@ -21,9 +25,9 @@ class Login extends Component {
             if(this.props.auth.user.role === 'admin'){
                 this.props.history.push("/adminDashboard");
             } else if(this.props.auth.user.role === 'manager') {
-                this.props.history.push("/dashboard");
+                this.props.history.push("/storage/all");
             } else if(this.props.auth.user.role === 'user') {
-                this.props.history.push("/dashboard");
+                this.props.history.push("/");
             }
         }
     }
@@ -63,14 +67,22 @@ class Login extends Component {
     render() {
         const { errors } = this.state;
         return (
+            <div>
+                {/* Header */}
+                <header>
+                    {/* Header desktop */}
+                    <HeaderD/>
+                    {/* Header Mobile */}
+                    <HeaderM/>
+                    {/* Menu Mobile */}
+                </header>
+                {/* Slider */}
+                {/*<Slider/>*/}
             <div className="container">
-                <div className="row">
-                    <div className="col s8 offset-s2">
-                        <Link to="/" className="btn-flat waves-effect">
-                            <i className="material-icons left">keyboard_backspace</i> Back to
-                            home
-                        </Link>
-                        <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                <div className="row p-t-100 p-b-30">
+                    <div className="col-lg-4 m-auto">
+                        <div className="card">
+                        <div className="" style={{ paddingLeft: "11.250px" }}>
                             <h4>
                                 <b>Login</b> below
                             </h4>
@@ -79,41 +91,41 @@ class Login extends Component {
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
-                            <div className="input-field col s12">
+                            <div className="input-field">
+                                <label htmlFor="email">Email</label>
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.email}
                                     error={errors.email}
                                     id="email"
                                     type="email"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.email || errors.emailnotfound
                                     })}
                                 />
-                                <label htmlFor="email">Email</label>
                                 <span className="red-text">
                                      {errors.email}
                                      {errors.emailnotfound}
                                  </span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="input-field">
+                                <label htmlFor="password">Password</label>
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password}
                                     error={errors.password}
                                     id="password"
                                     type="password"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.password || errors.passwordincorrect
                                     })}
                                 />
-                                <label htmlFor="password">Password</label>
                                 <span className="red-text">
                                     {errors.password}
                                     {errors.passwordincorrect}
                                 </span>
                             </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                            <div className="">
                                 <button
                                     style={{
                                         width: "150px",
@@ -122,7 +134,7 @@ class Login extends Component {
                                         marginTop: "1rem"
                                     }}
                                     type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                    className="btn btn-primary mb-4"
                                 >
                                     Login
                                 </button>
@@ -130,6 +142,10 @@ class Login extends Component {
                         </form>
                     </div>
                 </div>
+                </div>
+            </div>
+                <Footer/>
+                {/* Back to top */}
             </div>
         );
     }

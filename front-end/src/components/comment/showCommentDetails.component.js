@@ -130,7 +130,7 @@ class ShowCommentDetails extends Component {
             </div>
 
             <div className="col-md-6">
-              <Link to={`/comments/edit-comment/${comment._id}`} className="btn btn-outline-info btn-lg btn-block">
+              <Link to={`/${comment._id}`} className="btn btn-outline-info btn-lg btn-block">
                     Edit comment
               </Link>
               <br />

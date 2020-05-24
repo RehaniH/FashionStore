@@ -72,7 +72,7 @@ class App extends Component {
                     <Route path='/show-comment/:id' exact component={ShowCommentDetails} />
 
                     <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
-                    <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
+
 
                     <Route path="/home/:id" component={ViewProductComponent}/>
                     <Route path="/storage/products" component={AddProducts}/>
@@ -95,6 +95,7 @@ class App extends Component {
                      <PrivateRoute exact path="/addCategory" component={AddCategory}/>
                      <PrivateRoute exact path="/updateCategory/:id" component={UpdateCategory}/>
                      <PrivateRoute exact path="/updateProfile/:id" component={UpdateProfile}/>
+                     <PrivateRoute path='/wishlist/show-wishlist/' exact component={ShowWishlist}/>
 
                     </Switch>
                 </div>

@@ -6,6 +6,13 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
+import Modal from 'react-awesome-modal';
+import { Redirect } from 'react-router-dom';
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
+
+
+
 
 
 
@@ -18,13 +25,15 @@ class AddComment extends Component {
             ratings:'',
             comment:'',
             date_of:'',
-            product_id:''
+            product_id:'',
+            visible : false
             
         };
     }
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
+     
     };
 
  
@@ -41,7 +50,7 @@ class AddComment extends Component {
             ratings: this.state.ratings,
             comment: this.state.comment,
             date_of: new Date,
-            product_id: "23"
+            product_id: this.props.product
             
         };
 
@@ -58,12 +67,27 @@ class AddComment extends Component {
                     value:''
                     
                 })
-                this.props.history.push('/comments');
-            })
+                
+                this.props.history.push('/home/'+this.props.product);
+                // this.props.updateState();
+            }) 
             .catch(err => {
                 console.log("Error in AddComment!");
             })
     };
+
+        openModal() {
+          this.setState({
+              visible : true
+          });
+      }
+
+      closeModal() {
+          this.setState({
+              visible : false
+          });
+          window.location.reload(false);
+      }
 
     
 
@@ -83,6 +107,7 @@ class AddComment extends Component {
                 value={this.state.ratings}
                 onChange={this.onChange}
                 size="large"
+                isRequired
               />
             </Box>
             
@@ -92,36 +117,29 @@ class AddComment extends Component {
 
         const { user } = this.props.auth;
 
+        if(this.props.auth.user.role === 'user') {
+
         return (
-      <div>
-          
-      <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-      <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-      <div className="container">
-      <div class="row">
-      <div class="col-sm-10 col-sm-offset-1">         
 
-      <div className="comment-tabs">
-          <ul className="nav nav-tabs" role="tablist">
-            <li ><a href="" role="tab" data-toggle="tab"><h4 className="reviews text-capitalize">
-              
-            <Link to={`/comments`}>
-            Comments
-            </Link>
-              
-              </h4></a></li>
-            <li className="active" ><a href="#add-comment" role="tab" data-toggle="tab"><h4 className="reviews text-capitalize">Add comment</h4></a></li>
-          </ul>
-              
-             
-          <div className="tab-pane" id="add-comment-disabled">
+<section>
+
+<div className="container">
+  <div className={(user.name == undefined ? "hidden" : "row")}>
+<AwesomeButton size={"large"} type="primary" onPress={() => this.openModal()} >
+Rate this product
+  </AwesomeButton>
+  </div>
+  </div>
+<Modal visible={this.state.visible} width="500" height="350" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+    <div>
+      <center><h1>Add New Comment</h1></center>
+        <div className="m-2">
                       <br></br>
                         <form onSubmit={this.onSubmit} className="form-horizontal" > 
                           <div className="form-group">
-                            <label htmlFor="email" className="col-sm-2 control-label">UserName:</label>
-                            <div className="col-sm-10">
+                            <label htmlFor="email" className="col-sm-4 control-label ">UserName:</label>
+                            <div className="col-sm-7">
                             <input
 
                                         type='text'
@@ -130,11 +148,12 @@ class AddComment extends Component {
                                         className='form-control'
                                         value={user.name}
                                         onChange={this.onChange}
+                                        readOnly
                                         
                             />
                             </div>
                           </div>
-
+{/* 
                           <div className="form-group">
                            
                             <div className="col-sm-10">                    
@@ -150,13 +169,13 @@ class AddComment extends Component {
                                     />
                               </div>
                             </div>
-                          </div>
+                          </div> */}
 
                           
 
                           <div className="form-group">
-                            <label htmlFor="uploadMedia" className="col-sm-2 control-label">Rating:</label>
-                            <div className="col-sm-10">                    
+                            <label htmlFor="uploadMedia" className="col-sm-4 control-label">Rating:</label>
+                            <div className="col-sm-7">                    
                               <div className="input-group">
                                 
                             
@@ -170,8 +189,8 @@ class AddComment extends Component {
                           </div>
 
                           <div className="form-group">
-                            <label htmlFor="uploadMedia" className="col-sm-2 control-label">Comment:</label>
-                            <div className="col-sm-10">                    
+                            <label htmlFor="uploadMedia" className="col-sm-4 control-label">Comment:</label>
+                            <div className="col-sm-7">                    
                               <div className="input-group">
                                 <textarea
                                         type='text'
@@ -180,6 +199,7 @@ class AddComment extends Component {
                                         className='form-control'
                                         value={this.state.comment}
                                         onChange={this.onChange}
+                                        required
                                     />
                               
                               </div>
@@ -188,28 +208,26 @@ class AddComment extends Component {
 
           
                           <div className="form-group">
-                            <div className="col-sm-offset-2 col-sm-10">                    
-                              <button className="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span className="glyphicon glyphicon-send" /> Post</button>
+                            <div className="col-sm-offset-4 col-sm-10">                    
+                              <button className="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment" onClick={() => this.closeModal()}><span className="glyphicon glyphicon-send" /> Post</button>
                             </div>
                           </div>            
                         </form>
                       </div>
-             
-             
-              
-                        
-        </div>
 
-        
-        
-
+      
+      
+       
+        {/* <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a> */}
     </div>
-</div>
-</div>
-</div>
+</Modal>
+</section>
 
 
         );
+      } else {
+        return <Redirect to='/login' />
+    }
     }
 }
 

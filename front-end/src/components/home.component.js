@@ -2,18 +2,27 @@ import React, {Component} from "react";
 import axios from 'axios'
 import '../css/home.css'
 import {Link} from "react-router-dom";
+import AddWishlist from "./wishlist/addWishlist.component.js";
 
 const Product = props =>(
     <div className='col-md-3 details div-border'>
-        <Link to={'/home/' + props.product.ref_no}>
+
+            <div className="img-wrapper">
+            <Link to={'/home/' + props.product.ref_no}>
             <img className='img-center img' src={props.product.product_image} alt={props.product.name}/>
-        </Link>
+            </Link>
+            <div class="img-overlay">
+            <AddWishlist product={props.product}></AddWishlist>
+            </div>
+            </div>
+
         <p className='center'>{props.product.name}</p>
+
         <p className={props.product.discount !== undefined ? 'cut' :''}>Rs. {props.product.retail_price.toFixed(2)}</p>
         <p><span className='ref'>#{props.product.ref_no}    </span>
             {props.product.discount !== undefined ? '  Rs. '+ props.product.discount.discount_price.toFixed(2): ' '}
         </p>
-            <input value='Add to Cart' className='btn btn-danger img-center'/>
+
     </div>
 );
 
@@ -50,6 +59,7 @@ class Home extends Component{
                         {this.state.products.map(function (currentProduct, i) {
                             return <Product product={currentProduct} key={i}/>;
                         })}
+
                     </div>
                 </div>
             </div>

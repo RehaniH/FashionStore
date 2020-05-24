@@ -9,4 +9,4 @@ let discount = new Schema({
     end_date:{type:Date}
 });
 
-module.exports = mongoose.model('Discount', discount);
+module.exports = Discount =  mongoose.model('Discount', discount);

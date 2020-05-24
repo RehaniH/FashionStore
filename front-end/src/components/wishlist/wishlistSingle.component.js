@@ -83,7 +83,11 @@ const WishlistSingle = (props) => {
                         </td>
                         <td width="15%" className="price">{wishlist.price}</td>
                         
-                        <td width="15%"><button className="round-black-btn small-btn">Add to Cart</button></td>
+                        <td width="15%">
+                          <Link to={'/home/'+ wishlist.ref_no}>
+                            <a className="round-black-btn small-btn">Add to Cart</a>
+                          </Link>
+                        </td>
                         <td width="10%" className="text-center"><a href="#" className="trash-icon"><i className="far fa-trash-alt" /></a></td>
                         <td width="15%"><a style={{color: "red"}} onClick={alert.bind(this,wishlist._id)}><TiDelete size={32}/></a></td>
                         

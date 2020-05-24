@@ -13,7 +13,7 @@ const Product = props =>(
        <td><img src={props.product.product_image} height='40' width='30' alt={props.product.name}/></td>
        <td>
            <Link to={"/storage/edit/" + props.product._id}>Edit</Link>
-           <Link to={"/storage/discounts/" + props.product.ref_no}>Add Discount</Link>
+           <Link to={"/storage/discounts/" + props.product._id}>Add Discount</Link>
        </td>
    </tr>
 );

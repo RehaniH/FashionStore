@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 
 class AddProducts extends Component{
 
@@ -25,6 +28,7 @@ class AddProducts extends Component{
             retail_price: 0.00,
             description:"",
             product_img:null,
+            product_img_preview:null,
             categories:[],
 
             errors: {
@@ -35,6 +39,7 @@ class AddProducts extends Component{
                 manufacturer_price: "",
                 retail_price: "",
                 description:"",
+                product_img: ""
             }
         }
     }
@@ -42,24 +47,18 @@ class AddProducts extends Component{
         axios.get('http://localhost:4000/category/all')
             .then(response =>{
             this.setState({
-                categories: response.data
+                categories:  [{_id: 'first', name:'Select category'}].concat(response.data)
             });
             console.log(response.data);
         }).catch(err => console.log('error'))
     }
 
     onChangeRefNo(e){
-
-        if(e.target.value === undefined || e.target.value == null){
-            this.setState({
-                errors:{
-                    product_id: 'product id cannot be missing or empty'
-                }
-            });
-        }
-
+        let errorMsg  = '';
+        (e.target.value === 0 && e.target.value === '') ? errorMsg = 'Product id cannot be zero or empty': errorMsg = '';
         this.setState({
-            product_id: e.target.value
+            product_id: e.target.value,
+            errors :{product_id: errorMsg}
         });
     }
 
@@ -108,6 +107,7 @@ class AddProducts extends Component{
     }
 
     onChangeCategory(e){
+
         console.log(e.target.value + ' in main');
         this.setState({
             category: e.target.value
@@ -117,9 +117,11 @@ class AddProducts extends Component{
     }
 
     onChangeFile(e){
+
         console.log(e.target.files[0]);
         this.setState({
             product_img: e.target.files[0],
+            product_img_preview: URL.createObjectURL(e.target.files[0]),
             loaded:0,
         });
     }
@@ -133,18 +135,18 @@ class AddProducts extends Component{
         let manufacturedPrice = '';
         let retailPrice = '';
         let productQuantity = '';
-
+        let productImage = '';
         if(this.state.product_name === ''){
             productName = 'product name cannot be missing or empty';
             formIsValid = false;
         }
 
-        if(this.state.product_id === ''){
+        if(this.state.product_id === '' || this.state.product_id === 0){
             productId = 'product id cannot be missing or empty';
             formIsValid = false;
         }
 
-        if(this.state.category === ''){
+        if(this.state.category === '' || this.state.category._id === 'first'){
             productCategory = 'product category cannot be missing or empty';
             formIsValid = false;
         }
@@ -163,6 +165,10 @@ class AddProducts extends Component{
             productQuantity = 'product quantity cannot be missing or empty';
             formIsValid = false;
         }
+        if(this.state.product_img === null || this.state.product_img === undefined){
+            productImage = 'product image cannot be missing or empty';
+            formIsValid = false;
+        }
 
         this.setState({
             errors: {
@@ -172,6 +178,7 @@ class AddProducts extends Component{
                 quantity: productQuantity,
                 manufacturer_price: manufacturedPrice,
                 retail_price: retailPrice,
+                product_img: productImage
             }
         });
 
@@ -226,6 +233,16 @@ class AddProducts extends Component{
 
     }
     render() {
+        const classes = makeStyles((theme) => ({
+            root: {
+                '& > *': {
+                    margin: theme.spacing(1),
+                },
+            },
+            input: {
+                display: 'none',
+            },
+        }));
         return (
             <div className='container-fluid'>
                 <div style={{marginTop: 20}}>
@@ -236,8 +253,8 @@ class AddProducts extends Component{
                             <label>Product No: </label>
                             <input type="text" className="form-control" onChange={this.onChangeRefNo} name='productId'
                                    value={this.state.product_id} />
-                            {this.state.errors.product_id !== undefined && this.state.errors.product_id.length !== 0 &&
-                            <span className='error'>{this.state.errors.product_id}</span>}
+                            {this.state.errors.product_id !== undefined && this.state.errors.product_id.length > 0 &&
+                            <small className='text-danger'>{this.state.errors.product_id}</small>}
                         </div>
 
                         <div className="form-group">
@@ -245,7 +262,7 @@ class AddProducts extends Component{
                             <input type="text" className="form-control" onChange={this.onChangeProductName} name='productName'
                                    value={this.state.product_name} />
                             {this.state.errors.product_name !== undefined && this.state.errors.product_name.length > 0 &&
-                            <span className='error'>{this.state.errors.product_name}</span>}
+                            <small className='text-danger'>{this.state.errors.product_name}</small>}
                         </div>
 
                         <div className="form-group">
@@ -259,7 +276,7 @@ class AddProducts extends Component{
                             <input type="number" className="form-control" onChange={this.onChangeQuantity} name='quantity'
                                    value={this.state.quantity} />
                             {this.state.errors.quantity !== undefined &&
-                            <span className='error'>{this.state.errors.quantity}</span>}
+                            <small className='text-danger'>{this.state.errors.quantity}</small>}
                         </div>
 
                         <div className="form-group">
@@ -267,14 +284,14 @@ class AddProducts extends Component{
                             <input type="number" className="form-control" onChange={this.onChangeManufacturerPrice} name='manufacturerPrice'
                                    value={this.state.manufacturer_price} />
                             {this.state.errors.manufacturer_price !== undefined &&
-                            <span className='error'>{this.state.errors.manufacturer_price}</span>}
+                            <small className='text-danger'>{this.state.errors.manufacturer_price}</small>}
                         </div>
                         <div className="form-group">
                             <label>Retail Price: </label>
                             <input type="number" className="form-control" onChange={this.onChangeRetailPrice} name='retailPrice'
                                    value={this.state.retail_price} />
                             {this.state.errors.retail_price !== undefined &&
-                            <span className='error'>{this.state.errors.retail_price}</span>}
+                            <small className='text-danger'>{this.state.errors.retail_price}</small>}
                         </div>
 
                         <div className="form-group">
@@ -283,13 +300,34 @@ class AddProducts extends Component{
                                 {this.state.categories.map(category => <option key={category._id} value={category._id}>{category.name}</option>)}
                             </select>
                             {this.state.errors.category !== undefined && this.state.errors.category.length > 0 &&
-                            <span className='error'>{this.state.errors.category}</span>}
+                            <small className='text-danger'>{this.state.errors.category}</small>}
                         </div>
 
-                        <div className="form-group">
-                            <label>Product Image: </label>
-                            <input type="file" className="form-control" onChange={this.onChangeFile} name="someFile" />
+                        <div>
+                            {this.state.product_img_preview !== undefined && this.state.product_img_preview !== null &&
+                            <img src={this.state.product_img_preview} width='80px' height='60px'/>}
                         </div>
+
+                        <div className={classes.root}>
+                            <label>Product Image: </label>
+                            {this.state.product_img !== undefined && this.state.product_img !== null &&
+                            <p className='text-info'>{this.state.product_img.name}</p>}
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="contained-button-file"
+                                type="file"
+                                onChange={this.onChangeFile} name="someFile" style={{display: 'none'}}
+                            />
+                            <label htmlFor="contained-button-file">
+                                <Button variant="contained" color="primary" startIcon={<CloudUploadIcon/>} component="span">
+                                    Upload
+                                </Button>
+                            </label>
+                            {this.state.errors.product_img !== undefined && this.state.errors.product_img.length > 0 &&
+                            <small className='text-danger'>{this.state.errors.product_img}</small>}
+                        </div>
+
 
                         <div className="form-group">
                             <input type="submit" className="btn btn-primary" value="Add Product"/>

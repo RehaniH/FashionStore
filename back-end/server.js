@@ -58,6 +58,9 @@ app.use('/discount', discount);
 app.use('/category', category);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));
+
+
+
 //Routing configured for category router
 app.use('/category', category);
 

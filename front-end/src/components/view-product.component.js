@@ -105,7 +105,7 @@ class ViewProductComponent extends Component{
         obj.title=this.state.product_name;
         obj.username = user.name;
         obj.quantity = this.state.qntty;
-        obj.price =  this.state.retail_price.toFixed(2);
+        obj.price = this.state.discount_price;
         obj.status=false;
 
         console.log(obj);
@@ -222,12 +222,15 @@ class ViewProductComponent extends Component{
                     </article> {/* gallery-wrap .end// */}
                   </aside>
                   <aside className="col-sm-7">
-                    <article className="card-body p-5">
+                    <article style={{backgroundColor:"#E8E8E3"}} className="card-body p-5">
                       <h3 className="title mb-3">{this.state.product_name}</h3>
+                        <div className="row">
+                            <h1 className={this.state.discount !== undefined ? 'cut ml-5 display-1':'ml-5 display-1'} style={{float: "left"}}>Rs. {this.state.retail_price.toFixed(2)}</h1>
+
+                        </div>
                       <p className="price-detail-wrap"> 
                         <span className="price h3 text-warning"> 
-                          <h1 className={this.state.discount !== undefined ? 'cut':''}>Rs. {this.state.retail_price.toFixed(2)}</h1>
-                        </span> 
+                        </span>
                         <span> Upto<p>{this.displayCondition ? this.state.end_date.toDateString(): ''}</p></span> 
                       </p> {/* price-detail-wrap .// */}
                       <dl className="item-property">
@@ -240,7 +243,7 @@ class ViewProductComponent extends Component{
                       </dl>  {/* item-property-hor .// */}
                       <dl className="param param-feature">
                         <dt>price</dt>
-                        <dd><p className={this.state.discount !== undefined ? 'cut':''}>Rs. {this.state.retail_price.toFixed(2)}</p>
+                        <dd><p className={this.state.discount !== undefined ? 'cut':''}>Rs. {this.state.discount_price.toFixed(2)}</p>
 
                         </dd>
                       </dl> 
@@ -260,10 +263,11 @@ class ViewProductComponent extends Component{
                       <hr />
     
                       <hr />
+                      <form>
                       Number of Pieces <input className="form-group" value={this.state.qntty} onChange={this.onChangeQtty.bind(this)} type="number" min="1" onChangeValue="1"/><br></br><br></br><br></br>
                     <input value='Add to Cart' hidden={this.check(this.state.product_id)} onClick={this.indexxNumber.bind(this)} className='btn btn-danger'/>
                     <input value='View Cart' hidden={!this.check(this.state.product_id)} onClick={() => this.props.history.push('/CartView')} className='btn btn-danger'/>
-          
+                      </form>
                     </article>
                   </aside> 
                 </div> 

@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { FaUserAlt } from 'react-icons/fa';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../../actions/authActions";
 
 class HeaderD extends Component {
 
     render(){
+        const { user } = this.props.auth;
         return(
             <div className="container-menu-desktop">
                 <div className="wrap-menu-desktop bg-white">
@@ -16,7 +21,7 @@ class HeaderD extends Component {
                         <div className="menu-desktop">
                             <ul className="main-menu">
                                 <li className="active-menu">
-                                    <a href="index.html">Home</a>
+                                    <a href="/">Home</a>
                                 </li>
                                 <li>
                                     <Link to="/dashboard">Products</Link>
@@ -35,7 +40,17 @@ class HeaderD extends Component {
                                 <i className="zmdi zmdi-favorite-outline" />
                                 </Link>
                             </a>
-                        </div>
+                            <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart">
+                                <Link to="/login">
+                                    < FaUserAlt size={22} />
+                                </Link>
+                            </div>
+                                <div className="p-l-22 p-r-11" style={{display: user.name === undefined ? 'none' : 'block'}}>
+                                    <a className="" href="/" data-toggle="modal" data-target="#logoutModal">
+                                    Logout
+                                    </a>
+                                </div>
+                            </div>
                     </nav>
                 </div>
             </div>
@@ -44,4 +59,18 @@ class HeaderD extends Component {
 
 }
 
-export default HeaderD;
+HeaderD.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { registerUser }
+)(withRouter(HeaderD));

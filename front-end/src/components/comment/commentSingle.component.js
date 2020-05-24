@@ -48,7 +48,7 @@ const CommentSingle = (props) => {
                 </Box>
                   
                 
-                  <h4 className="media-comment">
+                  <h4 className="media-comment text-left">
                   {comment.comment}
                   </h4>
                   <div className={"text-right "+(comment.username == user ? 'show' : 'hidden')}>

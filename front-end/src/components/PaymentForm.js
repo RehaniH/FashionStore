@@ -6,6 +6,7 @@ import '../css/andrewStyle.css'
 
 import HeaderD from "./public/layout/Header Desktop";
 import HeaderM from "./public/layout/Header Mobile";
+import  { Link } from "react-router-dom";
 
 import Footer from "./public/layout/Footer";
 
@@ -237,7 +238,10 @@ import connect from "react-redux/es/connect/connect";
                         </div>
                         <input type="hidden" name="issuer" value={issuer} />
                         <div className="form-actions">
-                            <button className="btn btn-success btn-block">PAY</button>
+                            <button className="btn btn-success btn-block">
+                                PAY
+
+                                </button>
                         </div>
                     </form>
 

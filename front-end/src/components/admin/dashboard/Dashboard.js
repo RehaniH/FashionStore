@@ -49,7 +49,7 @@ class Dashboard extends Component {
         const { users } = this.state;
         const { manager } = this.state;
         const { category } = this.state;
-        if(true) {
+        if(this.props.auth.user.role === 'admin') {
         return (
                 <div>
                     <div id="wrapper">

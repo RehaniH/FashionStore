@@ -37,12 +37,14 @@ import AddWishlist from "./components/wishlist/addWishlist.component.js";
 import ShowWishlist from "./components/wishlist/showWishlist.component.js";
 import HomeComponent from './components/home.component'
 import ViewProductComponent from "./components/view-product.component";
-import AddDiscountComponent from "./components/add-discount.component";
-import AllProducts from "./components/retrieve-products.component";
-import AddProducts from "./components/manage-products.component";
 import PaymentForm from "./components/PaymentForm";
 
 //admin components
+import AddDiscountComponent from "./components/store-manager/add-discount.component";
+import AllProducts from "./components/store-manager/retrieve-products.component";
+import AddProducts from "./components/store-manager/manage-products.component";
+import EditProducts from "./components/store-manager/edit-products.component"
+
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import AddStoreManager from "./components/admin/store-manager/AddStoreManager";
 import AddCategory from "./components/admin/category/AddCategory";
@@ -98,9 +100,10 @@ class App extends Component {
 
 
                     <Route path="/home/:id" component={ViewProductComponent}/>
-                    <Route path="/storage/products" component={AddProducts}/>
+                    <Route path="/storage/products" exact component={AddProducts}/>
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
+                    <Route path="/storage/edit-products/:id" exact component={EditProducts}/>
 
                     <Switch>
                     {/*all user components here*/}

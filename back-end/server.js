@@ -27,6 +27,9 @@ const category = require("./Routes/category.routes");
 
 let db_url = 'mongodb+srv://web-service:groupassign@project-owtzo.mongodb.net/fashion_store?retryWrites=true&w=majority';
 
+//added to set update possible
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true});
 //mongoose.Promise = global.Promise;
 
@@ -52,6 +55,7 @@ app.use('/wishlists',wishlists);
 app.use('/',ps);
 app.use('/pymt',pay);
 app.use('/discount', discount);
+app.use('/category', category);
 
 app.use('/items', express.static(path.join(__dirname ,'items')));
 //Routing configured for category router

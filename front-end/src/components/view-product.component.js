@@ -8,6 +8,11 @@ import AddComment from "./comment/addComment.component.js";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 
+import HeaderD from "./public/layout/Header Desktop";
+import HeaderM from "./public/layout/Header Mobile";
+import Slider from "./public/layout/Slider";
+import Footer from "./public/layout/Footer";
+
 
 class ViewProductComponent extends Component{
 
@@ -133,39 +138,148 @@ class ViewProductComponent extends Component{
 
 
         return (
+            // <div>
+              
+            //     <header>
+                   
+            //         <HeaderD/>
+                  
+            //         <HeaderM/>
+                  
+            //     </header>
+               
+            
+       
 
-            <div className='container'>
-                <div className='float-child'>
-                    <img src={this.state.product_image} alt={this.state.product_image} style={{height:"570px",width:"490px"}}/>
-                </div>
-                <div className='float-child' style={{backgroundColor:"lightgray",textAlign:"center"}} >
-                    <br></br><br></br>
-                    <h1 style={{fontFamily:"cursive"}}>{this.state.product_name}<b></b></h1>
-                    <br></br><br></br>
-                    <strong style={{color:"blue"}}>Description :</strong>
-                    <br></br><br></br>
-                    <p>{this.state.description}</p>
-                    <p className='ref'>#{this.state.product_ref}</p>
-                    <p className={this.state.discount !== undefined ? 'cut':''}> Rs. {this.state.retail_price.toFixed(2)}</p>
-                    <p>Rs.{this.displayCondition ? this.state.discount_price: ''}</p>
-                    <p>Discount: {this.displayCondition ? this.state.discount_percentage : ''}%</p>
-                    <p>{this.displayCondition ? this.state.end_date.toDateString(): ''}</p>
 
-                    <strong>Size Guide</strong>
-                    <img src='http://localhost:4000/items/Size_Guide.png' alt='size guide' height='300px' width='300px'/><br></br><br></br><br></br>
-                   Number of Pieces <input value={this.state.qntty} onChange={this.onChangeQtty.bind(this)} type="number" min="1" onChangeValue="1"/><br></br><br></br><br></br>
+            // <div className='container'>
+            //     <div className='float-child'>
+            //         <img src={this.state.product_image} alt={this.state.product_image} style={{height:"570px",width:"490px"}}/>
+            //     </div>
+            //     <div className='float-child' style={{backgroundColor:"lightgray",textAlign:"center"}} >
+            //         <br></br><br></br>
+            //         <h1 style={{fontFamily:"cursive"}}>{this.state.product_name}<b></b></h1>
+            //         <br></br><br></br>
+            //         <strong style={{color:"blue"}}>Description :</strong>
+            //         <br></br><br></br>
+            //         <p>{this.state.description}</p>
+            //         <p className='ref'>#{this.state.product_ref}</p>
+            //         <p className={this.state.discount !== undefined ? 'cut':''}> Rs. {this.state.retail_price.toFixed(2)}</p>
+            //         <p>Rs.{this.displayCondition ? this.state.discount_price: ''}</p>
+            //         <p>Discount: {this.displayCondition ? this.state.discount_percentage : ''}%</p>
+            //         <p>{this.displayCondition ? this.state.end_date.toDateString(): ''}</p>
+
+            //         <strong>Size Guide</strong>
+            //         <img src='http://localhost:4000/items/Size_Guide.png' alt='size guide' height='300px' width='300px'/><br></br><br></br><br></br>
+                //    Number of Pieces <input value={this.state.qntty} onChange={this.onChangeQtty.bind(this)} type="number" min="1" onChangeValue="1"/><br></br><br></br><br></br>
+                //     <input value='Add to Cart' hidden={this.check(this.state.product_id)} onClick={this.indexxNumber.bind(this)} className='btn btn-danger'/>
+                //     <input value='View Cart' hidden={!this.check(this.state.product_id)} onClick={() => this.props.history.push('/CartView')} className='btn btn-danger'/><br></br><br></br>
+            //     </div>
+
+
+
+            //       <hr></hr>
+
+                // <AddComment  product={refno}/>
+
+                // <ShowCommentList product={refno}/>
+            //     </div>
+
+
+              
+            //     <Footer/>
+               
+
+
+            // </div>
+
+                   <div>
+              
+                <header>
+                   
+                    <HeaderD/>
+                  
+                    <HeaderM/>
+                  
+                </header>
+
+            <br/><br/><br/><br/>
+            <div>
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+          
+            <div className="container">
+              
+              <hr />
+              <div className="card">
+                <div className="row">
+                  <aside className="col-sm-5 border-right">
+                    <article className=""> 
+                
+                      <div className="img-small-wrap m-2">
+                        <div className="item-gallery"> <img src={this.state.product_image} height="500px" width="450px" style={{'margin-top':'-245px'}}/> </div>
+                    
+                      </div> {/* slider-nav.// */}
+                    </article> {/* gallery-wrap .end// */}
+                  </aside>
+                  <aside className="col-sm-7">
+                    <article className="card-body p-5">
+                      <h3 className="title mb-3">{this.state.product_name}</h3>
+                      <p className="price-detail-wrap"> 
+                        <span className="price h3 text-warning"> 
+                          <h1 className={this.state.discount !== undefined ? 'cut':''}>Rs. {this.state.retail_price.toFixed(2)}</h1>
+                        </span> 
+                        <span> Upto<p>{this.displayCondition ? this.state.end_date.toDateString(): ''}</p></span> 
+                      </p> {/* price-detail-wrap .// */}
+                      <dl className="item-property">
+                        <dt>Description</dt>
+                        <dd><p>{this.state.description}</p></dd>
+                      </dl>
+                      <dl className="param param-feature">
+                        <dt>Ref_ID</dt>
+                        <dd>#{this.state.product_ref}</dd>
+                      </dl>  {/* item-property-hor .// */}
+                      <dl className="param param-feature">
+                        <dt>price</dt>
+                        <dd><p className={this.state.discount !== undefined ? 'cut':''}>Rs. {this.state.retail_price.toFixed(2)}</p>
+
+                        </dd>
+                      </dl> 
+                      <dl className="param param-feature">
+                        <dt>Percentage</dt>
+                        <dd><p>{this.displayCondition ? this.state.discount_percentage : ''}%</p></dd>
+                      </dl> 
+                      
+                      <dl className="param param-feature">
+                        <dt>Discount price</dt>
+                        <dd><p>{this.displayCondition ? this.state.discount_price: ''}</p></dd>
+                      </dl> 
+                      <dl className="param param-feature">
+                        <dt>Delivery</dt>
+                        <dd><img src='http://localhost:4000/items/Size_Guide.png' alt='size guide' height='300px' width='300px'/></dd>
+                      </dl>  {/* item-property-hor .// */}
+                      <hr />
+    
+                      <hr />
+                      Number of Pieces <input className="form-group" value={this.state.qntty} onChange={this.onChangeQtty.bind(this)} type="number" min="1" onChangeValue="1"/><br></br><br></br><br></br>
                     <input value='Add to Cart' hidden={this.check(this.state.product_id)} onClick={this.indexxNumber.bind(this)} className='btn btn-danger'/>
-                    <input value='View Cart' hidden={!this.check(this.state.product_id)} onClick={() => this.props.history.push('/CartView')} className='btn btn-danger'/><br></br><br></br>
-                </div>
+                    <input value='View Cart' hidden={!this.check(this.state.product_id)} onClick={() => this.props.history.push('/CartView')} className='btn btn-danger'/>
+          
+                    </article>
+                  </aside> 
+                </div> 
+              </div> 
+            </div>
+            </div>
+            <br></br><br></br>
+            <AddComment  product={refno}/>
 
+<ShowCommentList product={refno}/>
 
+<Footer/>
+               
+</div>
 
-                  <hr></hr>
-
-                <AddComment  product={refno}/>
-
-                <ShowCommentList product={refno}/>
-                </div>
+                
 
         );
     }

@@ -7,6 +7,10 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import { Redirect } from 'react-router-dom';
 
+import HeaderD from "../public/layout/Header Desktop";
+import HeaderM from "../public/layout/Header Mobile";
+import Footer from "../public/layout/Footer";
+
 
 
 
@@ -64,9 +68,18 @@ class ShowWishlist extends Component {
 
     return (
 
-      //         <Link to="/wishlist/add-wishlist" className="btn btn-outline-warning float-right">
-      //           + Add New wishlist
-      //         </Link>
+
+      <div>
+      {/* Header */}
+      <header>
+          {/* Header desktop */}
+          <HeaderD/>
+          {/* Header Mobile */}
+          <HeaderM/>
+          {/* Menu Mobile */}
+      </header>
+      {/* Slider */}
+  
 
       
       <div>
@@ -102,7 +115,14 @@ class ShowWishlist extends Component {
         </div>
       </div>
 
-      
+
+
+
+        <Footer/>
+             
+      </div>
+
+    
 
 
     );

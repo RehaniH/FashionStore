@@ -5,6 +5,11 @@ import connect from "react-redux/es/connect/connect";
 //import Payment from "./Payment";
 import { Redirect, Link } from 'react-router-dom';
 
+import HeaderD from "./public/layout/Header Desktop";
+import HeaderM from "./public/layout/Header Mobile";
+import Slider from "./public/layout/Slider";
+import Footer from "./public/layout/Footer";
+
 
 class CartView extends Component {
 
@@ -82,9 +87,20 @@ var tot=0;
 
             return (
 
+                <div>
+                {/* Header */}
+                <header>
+                    {/* Header desktop */}
+                    <HeaderD/>
+                    {/* Header Mobile */}
+                    <HeaderM/>
+                    {/* Menu Mobile */}
+                </header>
+                {/* Slider */}
+
 
                 <div style={{margin: "52px"}}>
-
+                <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                     <table className="table table-striped" style={{borderColor: "black", borderStyle: "solid"}}>
                         <thead style={{fontSize: "larger", backgroundColor: "black", color: "white"}}>
                         <tr>
@@ -98,12 +114,11 @@ var tot=0;
                         {cart.map((post, index) => <tbody key={post.id}>
                         <tr style={{backgroundColor: "gainsboro"}}>
                             <td>{post.title}</td>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{post.quantity} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input defaultValue={post.quantity}
+                            <td className="row">{post.quantity}
+                                <input className="ml-4 mr-4" defaultValue={post.quantity}
                                        onChange={(e) => cart[index].quantity = e.target.value} type="number"
                                        name="quantity" min="1" max="100"/>
-                                &nbsp;&nbsp;
-                                <button type="submit" className="btn btn-success"
+                                <button className="ml-4" type="submit" className="btn btn-success"
                                         onClick={e => this.updateQnty(e, post._id, index)}>Update Quantity
                                 </button>
                                 <br></br>
@@ -146,6 +161,10 @@ var tot=0;
 
 
                 </div>
+
+                <Footer/>
+             
+             </div>
 
 
             )

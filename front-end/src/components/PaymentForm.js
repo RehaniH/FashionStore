@@ -4,6 +4,11 @@ import Card from "react-credit-cards";
 import SupportedCards from "./Cards";
 import '../css/andrewStyle.css'
 
+import HeaderD from "./public/layout/Header Desktop";
+import HeaderM from "./public/layout/Header Mobile";
+
+import Footer from "./public/layout/Footer";
+
 import {
     formatCreditCardNumber,
     formatCVC,
@@ -110,8 +115,23 @@ import connect from "react-redux/es/connect/connect";
         const { name, number,address, expiry, cvc, focused, issuer, formData } = this.state;
 
         return (
+
+            
+      <div>
+      {/* Header */}
+      <header>
+          {/* Header desktop */}
+          <HeaderD/>
+          {/* Header Mobile */}
+          <HeaderM/>
+          {/* Menu Mobile */}
+      </header>
+      {/* Slider */}
+
+      <br></br><br></br><br></br>
             <div key="Payment" style={{backgroundImage:"url('https://i.pinimg.com/originals/98/8c/1e/988c1e07f1f6ca0676a31f8fb1029b09.png')"}}>
                 <div className="App-payment">
+                   
                     <h1 style={{fontStyle:"italic",fontFamily:"initial",color:"teal"}}>Payment Slip</h1>
 
 
@@ -227,6 +247,10 @@ import connect from "react-redux/es/connect/connect";
                 </div>
 
             </div>
+
+            <Footer/>
+             
+             </div>
         );
     }
 }

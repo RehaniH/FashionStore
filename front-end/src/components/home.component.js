@@ -15,7 +15,7 @@ const Product = props =>(
             {/* Block2 */}
             <div className="block2">
                 <div className="block2-pic hov-img0">
-                    <img src={props.product.product_image} alt={props.product.name} />
+                    <img src={props.product.product_image} alt={props.product.name} height="450px" width="200px"/>
                     <Link to={'/home/' + props.product.ref_no}>
                         <a href="" className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                             Quick View
@@ -37,7 +37,7 @@ const Product = props =>(
                         </span>
                     </div>
                     <div className="block2-txt-child2 flex-r p-t-3">
-                        <AddWishlist></AddWishlist>
+                        <AddWishlist product={props.product} ></AddWishlist>
                     </div>
                 </div>
             </div>
@@ -86,6 +86,7 @@ class Home extends Component{
                 {/* Product */}
                 {/*<section className="bg0 p-t-23 p-b-140">*/}
                 {/*<div className="container">*/}
+
             <div className="bg0 m-t-23 p-b-140">
                 <div className="container">
                     <div className="row">
@@ -96,8 +97,10 @@ class Home extends Component{
                         {/* </div> */}
                     </div>
                 </div>
+
+
             </div>
-                {/*</div>*/}z
+                {/*</div>*/}
                 {/* Footer */}
                 <Footer/>
                 {/* Back to top */}

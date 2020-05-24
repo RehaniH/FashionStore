@@ -55,6 +55,8 @@ import CategoryList from "./components/admin/category/CategoryList";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
 import UpdateProfile from "./components/admin/UpdateProfile";
 import Landing from "./components/admin/layout/Landing";
+import Homepage from "./components/public/Homepage";
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -82,6 +84,7 @@ class App extends Component {
 
                 <div className="App">
                     <Route exact path="/" component={AllProducts} />
+                    <Route exact path="/" component={Homepage} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route path="/add-category" component={AddCategory}/>
@@ -98,16 +101,16 @@ class App extends Component {
                     <Route path="/pay/:id" component={PaymentForm}/>
 
 
-
                     <Route path="/home/:id" component={ViewProductComponent}/>
                     <Route path="/storage/products" exact component={AddProducts}/>
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
+                    <Route exact path="/dashboard" component={HomeComponent} />
+
                     <Route path="/storage/edit-products/:id" exact component={EditProducts}/>
 
                     <Switch>
                     {/*all user components here*/}
-                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
 
                     {/*all store manager components here*/}
 

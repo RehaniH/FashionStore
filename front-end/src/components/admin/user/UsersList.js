@@ -68,10 +68,10 @@ class UsersList extends Component {
                                             <table className="table" id="dataTable" width="100%" cellSpacing="0">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Action</th>
+                                            <th className="text-dark">#</th>
+                                            <th className="text-dark">Name</th>
+                                            <th className="text-dark">Email</th>
+                                            <th className="text-dark">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>

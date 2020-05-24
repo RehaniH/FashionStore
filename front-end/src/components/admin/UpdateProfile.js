@@ -64,7 +64,7 @@ class UpdateProfile extends Component {
             axios
                 .put('http://localhost:4000/api/users/' + this.props.match.params.id, data)
                 .then(res => {
-                    this.props.history.push('/dashboard');
+                    this.props.history.push('/adminDashboard');
                 })
                 .catch(err => {
                     console.log("Error in update!");

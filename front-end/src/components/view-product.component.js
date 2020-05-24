@@ -127,6 +127,10 @@ class ViewProductComponent extends Component{
             return null;
           }
 
+        // if(!this.state.product_ref) {
+        //     return null;
+        //   }
+
 
         return (
 
@@ -154,7 +158,7 @@ class ViewProductComponent extends Component{
                     <input value='View Cart' hidden={!this.check(this.state.product_id)} onClick={() => this.props.history.push('/CartView')} className='btn btn-danger'/><br></br><br></br>
                 </div>
 
-                    
+
 
                   <hr></hr>
 

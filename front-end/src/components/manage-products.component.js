@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class AddProducts extends Component{
 
@@ -52,6 +52,10 @@ class AddProducts extends Component{
             console.log(response.data);
         }).catch(err => console.log('error'))
     }
+
+    previousPage = () =>{
+        this.props.history.push('/dashboard');
+    };
 
     onChangeRefNo(e){
         let errorMsg  = '';
@@ -229,6 +233,8 @@ class AddProducts extends Component{
                 quantity: 0,
                 product_img: null
             });
+
+            this.previousPage();
         }
 
     }
@@ -245,7 +251,7 @@ class AddProducts extends Component{
         }));
         return (
             <div className='container-fluid'>
-                <div style={{marginTop: 20}}>
+                <div style={{marginTop: 20}} className='container-md'>
                     <h3>Add New Product</h3>
                     <form onSubmit={this.onSubmit}>
 
@@ -332,9 +338,10 @@ class AddProducts extends Component{
                         <div className="form-group">
                             <input type="submit" className="btn btn-primary" value="Add Product"/>
                         </div>
-
                     </form>
                 </div>
+
+                <button className='btn btn-primary' onClick={this.previousPage}>Cancel</button>
             </div>
         );
     }

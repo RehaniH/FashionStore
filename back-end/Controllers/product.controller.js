@@ -30,15 +30,24 @@ exports.update_product = function (req, res) {
 
     const url = req.protocol + '://' + req.get('host');
     let query = {_id: req.params.id};
+    let fileName;
 
+    if(req.file !== undefined){
+        fileName = url + '/items/' + req.file.filename;
+    }else{
+        Product.findById(req.params.id).exec(function (err, product) {
+            fileName = product.product_image;
+        });
+    }
     Product.findOneAndUpdate(query,
-        {name :req.body.name,
+        {name :req.body.product_name,
+            ref_no: req.body.product_id,
             description :req.body.description,
             manufacturer_price : req.body.manufacturer_price,
             retail_price: req.body.retail_price,
             total_quantity: req.body.total_quantity,
             category : req.body.category,
-            product_image :url + '/items/' + req.file.filename,},
+            product_image :fileName,},
         {new: true}, function (err, product) {
 
             if(err){

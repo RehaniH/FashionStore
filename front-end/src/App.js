@@ -29,7 +29,7 @@ import ViewProductComponent from "./components/view-product.component";
 import AddDiscountComponent from "./components/add-discount.component";
 import AllProducts from "./components/retrieve-products.component";
 import AddProducts from "./components/manage-products.component";
-
+import EditProducts from "./components/edit-products.component"
 
 
 // Check for token to keep user logged in
@@ -90,6 +90,7 @@ class App extends Component {
                                         {/*all store manager components here*/}
                                         <PrivateRoute exact path="/something" component={Some} />
                                         <PrivateRoute exact path="/dashboard" component={AllProducts} />
+                                        <PrivateRoute exact path="/storage/:id" component={EditProducts} />
                                     </>
                                     :
                                     <>

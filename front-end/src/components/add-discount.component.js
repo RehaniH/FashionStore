@@ -64,6 +64,9 @@ class AddDiscountComponent extends Component{
             .catch();
     }
 
+    previousPage = () =>{
+        this.props.history.push('/dashboard');
+    };
 
     onChangeDiscountPercentage(e) {
         let msg, suggestion= '';
@@ -143,12 +146,16 @@ class AddDiscountComponent extends Component{
                         console.log(err);
                     });
 
+                this.previousPage();
+
             }else{
                 axios.put('http://localhost:4000/discount/' + this.state.discount_id, discountObj)
                     .then(respose => console.log(respose))
                     .catch(function (err) {
                         console.log(err);
                     });
+
+                this.previousPage();
             }
 
             this.setState({
@@ -165,61 +172,84 @@ class AddDiscountComponent extends Component{
     render() {
         return (
             <div className='container-fluid'>
-                <h3>Add New Discount</h3>
-                <div>
-                    <h6>Product No: </h6>{this.state.product_id}
-                    <h6>Product Name: </h6>{this.state.product_name}
-                    <h6>Description: </h6> {this.state.description}
-                    <h6>Quantity: </h6> {this.state.total_quantity}
-                    <h6>Manufactured Price: </h6>{this.state.manufacturer_price}
-                    <h6>Retail Price: </h6>{this.state.retail_price}
-                    <h6>prev gain: </h6>{this.state.prev_gain}
+                <div className='container-md'>
+                    <h3 className='text-info'>Add New Discount</h3>
+                    <p>Product No: <span className='text-info'>#{this.state.product_id}</span></p>
+                    <strong>{this.state.product_name}</strong>
+                    <p>prev gain: </p>{this.state.prev_gain}
                 </div>
-
+                <div className='container-md'>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Discount Percentage: </label>
-                        <input type="number" className="form-control" onChange={this.onChangeDiscountPercentage}
-                               value={this.state.discount_percentage}/>
-
-                        { this.state.errors.discount_percentage !== undefined && this.state.errors.discount_percentage.length > 0 &&
-                         <small className='text-danger'>{this.state.errors.discount_percentage}</small>}
-                    </div>
-
-                    <div className="form-group">
-                        <label>Discount Price: </label>
-                        <input type="number" className="form-control" name='discount_price'
-                               value={this.state.discount_price} readOnly/>
-                        {this.state.errors.discount_price !== undefined && this.state.errors.discount_price.length > 0 &&
-                        <small className='text-danger'>{this.state.errors.discount_price}</small>}
-                    </div>
-
-                    <div className="form-group">
-                        <label>Discount : </label>
-                        <input type="number" className="form-control" name='discount'
-                               value={this.state.discount} readOnly/>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <div className="form-group">
+                                <label>Quantity:</label>
+                                <input type='number' value={this.state.total_quantity} disabled={true} className='form-control'/>
+                            </div>
+                        </div>
+                        <div className='col-md-4'>
+                            <div className="form-group">
+                                <label>Manufactured Price:</label>
+                                <input type='number' value={this.state.manufacturer_price} disabled={true} className='form-control'/>
+                            </div>
+                        </div>
+                        <div className='col-md-4'>
+                            <div className="form-group">
+                                <label>Retail Price:</label>
+                                <input type='number' value={this.state.retail_price} disabled={true} className='form-control'/>
+                            </div>
+                        </div>
                     </div>
 
                     <div className='row'>
-                        <div className='col-md-6'>
+                        <div className='col-md-4'>
+                            <div className="form-group">
+                                <label>Discount Percentage: </label>
+                                <input type="number" className="form-control" onChange={this.onChangeDiscountPercentage}
+                                       value={this.state.discount_percentage}/>
+
+                                { this.state.errors.discount_percentage !== undefined && this.state.errors.discount_percentage.length > 0 &&
+                                <small className='text-danger'>{this.state.errors.discount_percentage}</small>}
+                            </div>
+                        </div>
+                        <div className='col-md-4'>
+                            <div className="form-group">
+                                <label>Discount Price: </label>
+                                <input type="number" className="form-control" name='discount_price'
+                                       value={this.state.discount_price} readOnly/>
+                                {this.state.errors.discount_price !== undefined && this.state.errors.discount_price.length > 0 &&
+                                <small className='text-danger'>{this.state.errors.discount_price}</small>}
+                            </div>
+                        </div>
+                        <div className='col-md-4'>
+                            <div className="form-group">
+                                <label>Discount : </label>
+                                <input type="number" className="form-control" name='discount'
+                                       value={this.state.discount} readOnly/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='row'>
+                        <div className='col-md-4'>
                             <label>Start Date : </label>
                             <span className='text-info'>{this.state.start_date.toDateString()}</span>
                             <Calendar onChange={this.onChangeStartDate} value={this.state.start_date} minDate={new Date()}/>
                         </div>
-                        <div className='col-md-6'>
+                        <div className='col-md-4'>
                             <label>End Date : </label>
                             <span className='text-info'>{this.state.end_date.toDateString()}</span>
                             <Calendar onChange={this.onChangeEndDate} value={this.state.end_date} minDate={this.state.start_date}/>
                         </div>
                     </div>
 
-
-
                     <div className="form-group">
-                        <input type="submit" className="btn btn-primary" value="Add Product"/>
+                        <input type="submit" className="btn btn-primary" value="Save"/>
                     </div>
-
                 </form>
+
+                <button className='btn btn-primary' onClick={this.previousPage}>Cancel</button>
+                </div>
             </div>
         );
     }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CommentSingle from "./commentSingle.component.js";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
-
+import { Redirect } from 'react-router-dom';
 import Rating from 'react-rating';
 
 

@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
+    "generate-password": "^1.5.1",
     "is-empty": "^1.2.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.25.3",

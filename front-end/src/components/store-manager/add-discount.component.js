@@ -9,7 +9,6 @@ import StoreMangerSideBar from "./layout/store-manger-side-bar";
 import Navbar from "../admin/layout/Navbar";
 import Footer from "../admin/layout/Footer";
 import Logout from "../admin/layout/Logout-Modal";
-import AddProducts from "./manage-products.component";
 class AddDiscountComponent extends Component{
 
     constructor(props) {

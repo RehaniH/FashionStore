@@ -11,9 +11,6 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 
 
-
-
-
 const CommentSingle = (props) => {
     const  comment  = props.comment;
     const user = props.user;
@@ -60,6 +57,7 @@ const CommentSingle = (props) => {
                   <FiEdit3 size="2em"></FiEdit3>
                   </Link>
                   
+                   
                   </div>  
                 </div>
                             

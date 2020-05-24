@@ -66,9 +66,9 @@ class ViewProductComponent extends Component{
 
     render() {
         const refno=this.state.product_ref
-        if(!this.state.product_ref) {
-            return null;
-          }
+        // if(!this.state.product_ref) {
+        //     return null;
+        //   }
   
 
         return (

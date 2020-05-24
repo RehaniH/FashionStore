@@ -35,6 +35,7 @@ import ManagersList from "./components/admin/store-manager/ManagersList";
 import CategoryList from "./components/admin/category/CategoryList";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
 import UpdateProfile from "./components/admin/UpdateProfile";
+import Homepage from "./components/public/Homepage";
 
 
 // Check for token to keep user logged in
@@ -61,7 +62,7 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    <Route exact path="/" component={Landing} />
+                    <Route exact path="/" component={Homepage} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route path="/add-category" component={AddCategory}/>
@@ -73,15 +74,15 @@ class App extends Component {
 
                     <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
 
-
                     <Route path="/home/:id" component={ViewProductComponent}/>
                     <Route path="/storage/products" component={AddProducts}/>
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
+                    <Route exact path="/dashboard" component={HomeComponent} />
+
 
                     <Switch>
                     {/*all user components here*/}
-                    <PrivateRoute exact path="/dashboard" component={HomeComponent} />
 
                     {/*all store manager components here*/}
 

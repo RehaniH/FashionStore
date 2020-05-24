@@ -5,6 +5,7 @@ import axios from 'axios';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import { RiHeartAddLine } from 'react-icons/ri';
+import { confirmAlert } from 'react-confirm-alert';
 
 
 class AddWishlist extends Component {
@@ -23,7 +24,9 @@ class AddWishlist extends Component {
             username: user.name,
             productname: this.props.product.name,
             productimage: this.props.product.product_image,
-            price: this.props.product.retail_price
+            price: this.props.product.retail_price,
+            makeunique: user.name + this.props.product.name,
+            ref_no: this.props.product.ref_no
             
         };
         console.log(data);
@@ -35,7 +38,9 @@ class AddWishlist extends Component {
                     username: '',
                     productname:'',
                     productimage:'',
-                    price:''
+                    price:'',
+                    makeunique:'',
+                    ref_no:''
                     
                 })
                 this.props.history.push('/');
@@ -46,81 +51,40 @@ class AddWishlist extends Component {
             })
     };
 
+    
+    alertaddwishlist = () => {
+        confirmAlert({
+          
+          title: 'My Wishlist ',
+          message: 'Item has been added to your wishlist',
+          buttons: [
+            {
+              label: 'ok',
+      
+            }
+           
+          ]
+        });
+      };
+
     render() {
+      const { user } = this.props.auth;
         return (
-            // <div className="AddWishlist">
-            //     <div className="container">
-            //         <div className="row">
-            //             <div className="col-md-8 m-auto">
-            //                 <br />
-            //                 <Link to="/comments" className="btn btn-outline-warning float-left">
-            //                     Show Comment List
-            //                 </Link>
-            //             </div>
-            //             <div className="col-md-8 m-auto">
-            //                 <h1 className="display-4 text-center">Add new wishlist</h1>
-            //                 <p className="lead text-center">
-                                
-            //                 </p>
-
-            //                 <form noValidate onSubmit={this.onSubmit}>
-            //                     <div className='form-group'>
-            //                         <input
-            //                             type='text'
-            //                             placeholder='username'
-            //                             name='username'
-            //                             className='form-control'
-            //                             value={this.state.username}
-            //                             onChange={this.onChange}
-            //                         />
-            //                     </div>
-            //                     <br />
-
-            //                     <div className='form-group'>
-            //                         <input
-            //                             type='productname'
-            //                             placeholder='productname'
-            //                             name='productname'
-            //                             className='form-control'
-            //                             value={this.state.productname}
-            //                             onChange={this.onChange}
-            //                         />
-            //                     </div>
-
-            //                     <div className='form-group'>
-            //                         <input
-            //                             type='number'
-            //                             placeholder='price'
-            //                             name='price'
-            //                             className='form-control'
-            //                             value={this.state.price}
-            //                             onChange={this.onChange}
-            //                         />
-            //                     </div>
-
-                               
-                          
-            //                     <input
-            //                         type="submit"
-            //                         className="btn btn-outline-warning btn-block mt-4"
-            //                     />
-            //                 </form>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
 
 
-                        <form noValidate onSubmit={this.onSubmit}>
+                        
+                        <form style={{display: user.name === undefined ? 'none' : 'block'}} noValidate onSubmit={this.onSubmit}>
 
 
-                           
-                        <button className="btn btn-outline-danger" type="submit" >
-                        <RiHeartAddLine></RiHeartAddLine>
+                         
+                        <button className="btn btn-outline-danger" type="submit" onClick={this.alertaddwishlist.bind(this)} >
+                        
+                        <RiHeartAddLine ></RiHeartAddLine>
+                       
                         </button>
                         
                         </form>
-
+                        
             
         );
     }

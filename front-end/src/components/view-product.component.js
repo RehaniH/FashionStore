@@ -2,6 +2,12 @@ import React, {Component} from "react";
 import axios from 'axios';
 import '../css/product-view.css'
 import '../css/home.css'
+import ShowCommentList from "./comment/showCommentList.component.js";
+import AddComment from "./comment/addComment.component.js";
+import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
+
+
 class ViewProductComponent extends Component{
 
     constructor(props) {
@@ -59,6 +65,12 @@ class ViewProductComponent extends Component{
 
 
     render() {
+        const refno=this.state.product_ref
+        if(!this.state.product_ref) {
+            return null;
+          }
+  
+
         return (
             <div className='container'>
                 <div className='float-child'>
@@ -79,10 +91,30 @@ class ViewProductComponent extends Component{
                     <img src='http://localhost:4000/items/Size_Guide.png' alt='size guide' height='300px' width='300px'/>
 
                     <input value='Add to Cart' className='btn btn-danger'/>
-                </div>
+
+                  <hr></hr>  
+                </div>      
+                
+                <AddComment  product={refno}/>
+                
+                <ShowCommentList product={refno}/>
+                
+                
+
             </div>
         );
     }
 }
 
-export default ViewProductComponent;
+ViewProductComponent.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(
+    mapStateToProps
+)(ViewProductComponent);

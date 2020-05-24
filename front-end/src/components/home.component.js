@@ -6,15 +6,17 @@ import AddWishlist from "./wishlist/addWishlist.component.js";
 
 const Product = props =>(
     <div className='col-md-3 details div-border'>
-        <Link to={'/home/' + props.product.ref_no}>
+        
             <div className="img-wrapper">
+            <Link to={'/home/' + props.product.ref_no}>
             <img className='img-center img' src={props.product.product_image} alt={props.product.name}/>
+            </Link>
             <div class="img-overlay">
-           
+            <AddWishlist product={props.product}></AddWishlist>
             </div>
             </div>
-        </Link>
-        <p className='center'>{props.product.name}<AddWishlist product={props.product}></AddWishlist></p>
+        
+        <p className='center'>{props.product.name}</p>
         
         <p className={props.product.discount !== undefined ? 'cut' :''}>Rs. {props.product.retail_price.toFixed(2)}</p>
         <p><span className='ref'>#{props.product.ref_no}    </span>

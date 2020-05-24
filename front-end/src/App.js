@@ -63,12 +63,12 @@ class App extends Component {
                     <Route path="/add-category" component={AddCategory}/>
 
                     <Route path='/comments' component={ShowCommentList} />
-                    <Route path='/add-comment' exact component={AddComment} />
+                    <Route path='/add-comment/' exact component={AddComment} />
                     <Route path='/edit-comment/:id' exact component={UpdateComment} />
                     <Route path='/show-comment/:id' exact component={ShowCommentDetails} />
 
-                    <Route path='/wishlist/add-wishlist' exact component={AddWishlist} />
-                    <Route path='/wishlist/show-wishlist/:username' exact component={ShowWishlist} />
+                    {/* <Route path='/wishlist/add-wishlist' exact component={AddWishlist} /> */}
+                    <Route path='/wishlist/show-wishlist' exact component={ShowWishlist} />
                     
 
 
@@ -78,26 +78,16 @@ class App extends Component {
                     <Route path="/storage/all" component={AllProducts}/>
                     <Route path="/storage/discounts/:id" component={AddDiscountComponent}/>
                     <Switch>
-                        {
-                            this.props.auth.user.role === 'user' ?
-                                <>
                                     {/*all user components here*/}
                                     <PrivateRoute exact path="/dashboard" component={HomeComponent} />
-                                </>
-                                :
-                                this.props.auth.user.role === 'manager' ?
-                                    <>
+                                    {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
+
                                         {/*all store manager components here*/}
                                         <PrivateRoute exact path="/something" component={Some} />
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                                    </>
-                                    :
-                                    <>
+                                        {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
                                         {/*all admin components here*/}
-                                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                                        {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
                                         <PrivateRoute exact path="/something" component={Some} />
-                                    </>
-                        }
                     </Switch>
                 </div>
             </Router>

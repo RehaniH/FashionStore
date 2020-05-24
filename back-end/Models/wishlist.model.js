@@ -10,6 +10,7 @@ let WishlistSchema = new mongoose.Schema({
     productname: {
         type: String,
         
+        
     }
     ,
     productimage: {
@@ -19,6 +20,13 @@ let WishlistSchema = new mongoose.Schema({
     price: {
         type: Number,
 
+    },
+    makeunique: {
+        type: String,
+        unique: true 
+    },
+    ref_no: {
+        type: Number
     }
 
 

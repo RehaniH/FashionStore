@@ -17,6 +17,7 @@
     "moment-timezone": "^0.5.31",
     "react": "^16.13.1",
     "react-alert": "^7.0.1",
+    "react-awesome-button": "^6.5.1",
     "react-awesome-modal": "^2.0.5",
     "react-bootstrap": "^1.0.1",
     "react-calendar": "^3.1.0",
@@ -24,11 +25,14 @@
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
     "react-moment": "^0.9.7",
+    "react-rating": "^2.0.5",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-star-rating": "^1.4.2",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "stars-rating": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
